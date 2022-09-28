@@ -1,0 +1,58 @@
+{
+  "name": "@hadeshe93/wpconfig-plugin-vue3",
+  "version": "0.1.0",
+  "description": "",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/wpconfig#readme",
+  "license": "ISC",
+  "module": "dist/index.node.esm.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
+  "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
+    "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts wpconfig-plugin-vue3"
+  },
+  "types": "dist/index.d.ts",
+  "buildOptions": [
+    {
+      "target": "node",
+      "formats": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/wpconfig.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/wpconfig/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.18",
+    "vue": "^3.2.39",
+    "vue-loader": "^16.8.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.39",
+    "vue-loader": "^16.8.3"
+  },
+  "dependencies": {
+    "@hadeshe93/wpconfig-core": "workspace:^0.1.0",
+    "webpack": "^5.74.0",
+    "webpack-chain": "^6.5.1"
+  }
+}
