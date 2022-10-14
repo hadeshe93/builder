@@ -1,4 +1,5 @@
 import path from 'path';
+import { compose } from '../utils/fp';
 import { AppProjectMiddlewares } from '../typings/index';
 
 function actualRequire(moduleName) {
@@ -6,7 +7,14 @@ function actualRequire(moduleName) {
   return Object.prototype.hasOwnProperty.call(middlewareModule, 'default') ? middlewareModule.default : middlewareModule;
 } 
 
-function loadMiddleware(m: string | Function) {
+/**
+ * 加载中间件
+ *
+ * @export
+ * @param {(string | Function)} m
+ * @returns {*} 
+ */
+export function loadMiddleware(m: string | Function) {
   if (typeof m === 'function') return m;
   if (path.isAbsolute(m)) {
     return actualRequire(m);
@@ -22,7 +30,7 @@ function loadMiddleware(m: string | Function) {
  * @param {AppProjectMiddlewares} middlewares
  * @returns {*} 
  */
-export function compose(middlewares: AppProjectMiddlewares) {
+export function composeMiddlewares(middlewares: AppProjectMiddlewares) {
   const mList = middlewares.reduce((sum, m) => {
     const [name, ...options] = m;
     const middleware = loadMiddleware(name)(...options);
@@ -31,5 +39,5 @@ export function compose(middlewares: AppProjectMiddlewares) {
     }
     return sum;
   }, []);
-  return mList.reduce((composedFn, m) => (...args) => composedFn(m(...args)));
+  return compose(mList);
 }

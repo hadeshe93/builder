@@ -1,6 +1,7 @@
 import { excuteTasks } from './helpers/task';
-import { formatBuilderConfig } from './helpers/config';
 import { logger, Logger } from './utils/logger';
+import { formatBuilderConfig, formatAppProjectConfig, formatProjectConfig } from './helpers/config';
+
 import {
   BuildOrderType,
   BuilderConfig,
@@ -8,23 +9,24 @@ import {
   AppProjectMiddlewares,
   SupportedBuilderInsMap,
   SupportedBuilderNames,
+  SupportedBuilderMode,
 } from './typings/index';
 
 interface BuilderCoreOptions {
   logger: Logger;
 }
 
-export { excuteTasks };
-export { compose } from './helpers/compose';
+export { excuteTasks, formatBuilderConfig, formatAppProjectConfig, formatProjectConfig };
+export { composeMiddlewares } from './helpers/middleware';
 
 export type {
   BuilderConfig,
   AppProjectConfig,
   AppProjectMiddlewares,
+  SupportedBuilderNames,
+  SupportedBuilderMode,
   BuilderCoreOptions,
 };
-
-
 
 /**
  * 构建器基类

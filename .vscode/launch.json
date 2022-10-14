@@ -7,9 +7,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "[wpconfig] Debug",
+      "name": "[webpack-config] Debug",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@hadeshe93/webpack-config", "smoke-test"],
+      "stopOnEntry": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "[builder-webpack] Debug",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@hadeshe93/builder-webpack", "smoke-test"],
       "stopOnEntry": true
     }
   ]

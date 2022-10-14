@@ -2,7 +2,14 @@ import webpack, { Configuration } from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import { excuteTasks } from '@hadeshe93/builder-core';
 
-
+/**
+ * 启动 webpack 调试
+ *
+ * @export
+ * @param {Configuration[]} configs
+ * @param {('serial' | 'parallel')} [order='serial']
+ * @returns {*} 
+ */
 export async function doDev(configs: Configuration[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleDev = (config: Configuration) => {
     const compiler = webpack(config);
@@ -16,6 +23,14 @@ export async function doDev(configs: Configuration[], order: 'serial' | 'paralle
   );
 }
 
+/**
+ * 启动构建
+ *
+ * @export
+ * @param {Configuration[]} configs
+ * @param {('serial' | 'parallel')} [order='serial']
+ * @returns {*} 
+ */
 export async function doBuild(configs: Configuration[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleBuild = (config: Configuration) =>
     new Promise((resolve, reject) => {

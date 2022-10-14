@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack';
 import WebpackChain from 'webpack-chain';
-import { BuilderConfig, compose } from '@hadeshe93/builder-core';
+import { BuilderConfig, composeMiddlewares } from '@hadeshe93/builder-core';
+import builderConfigAdpoterMiddleware from '../mws/builder-config-adopter';
 import { getDevChainConfig, getProdChainConfig, getProdDllChainConfig, ParamsGetWebpackChainConfigs } from '@hadeshe93/wpconfig-core';
 
 /**
@@ -15,18 +16,23 @@ export function getWebpackConfigs(buildConfig: BuilderConfig): Configuration[] {
   if (builderName !== 'webpack') return [];
 
   const { build, projectPath, pageName, middlewares } = appProjectConfig;
+  const defaultMiddlewares = [
+    [builderConfigAdpoterMiddleware, buildConfig],
+  ];
 
   const middlewaresList = [];
   if (mode === 'development') {
     // 只且只有一项构建任务
     middlewaresList[0] = [
       [() => getDevChainConfig],
-      ...middlewares
+      ...middlewares,
+      ...defaultMiddlewares,
     ];
   } else if (mode === 'production') {
     middlewaresList[0] = [
       [() => getProdChainConfig],
-      ...middlewares
+      ...middlewares,
+      ...defaultMiddlewares,
     ];
     // 如果有配置 dllEntryMap，那需要前置一项任务
     if (build.dllEntryMap) {
@@ -42,7 +48,7 @@ export function getWebpackConfigs(buildConfig: BuilderConfig): Configuration[] {
     publicPath: build.publicPath,
     fePort: build.fePort,
   };
-  const composedFns = middlewaresList.map((middlewares) => compose(middlewares));
+  const composedFns = middlewaresList.map((middlewares) => composeMiddlewares(middlewares));
   const webpackChains: WebpackChain[] = composedFns.map((composedFn) => composedFn(params));
   return webpackChains.map((chain) => chain.toConfig());
 }

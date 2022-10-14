@@ -4,8 +4,8 @@ export type SupportedBuilderInsMap = Map<SupportedBuilderNames, any>;
 
 export interface ProjectConfig {
   page: {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     useFlexible?: boolean;
     useDebugger?: boolean;
     pxtoremOptions?: {
@@ -17,17 +17,18 @@ export interface ProjectConfig {
       mediaQuery?: boolean;
       minPixelValue?: number;
       exclude?: RegExp;
-    };
+    } | undefined | false;
   };
 
   build: {
-    fePort: number;
+    fePort?: number;
     publicPath?: string;
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
   };
 }
 
-export type AppProjectMiddlewares = [string | ((...args: any[]) => any), ...any[]][];
+export type AppProjectMiddleware = [string, any?] | [(...args: any[]) => any, any?];
+export type AppProjectMiddlewares = AppProjectMiddleware[];
 
 export interface AppProjectConfig extends ProjectConfig {
   projectPath: string;

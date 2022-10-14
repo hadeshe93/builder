@@ -14,7 +14,7 @@
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
     "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts wpconfig-plugin-vue3"
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts builder-webpack"
   },
   "types": "dist/index.d.ts",
   "buildOptions": [
@@ -41,12 +41,18 @@
     "url": "https://github.com/hadeshe93/wpconfig/issues"
   },
   "devDependencies": {
+    "@hadeshe93/wpconfig-mw-vue3": "workspace:^0.1.0",
     "@types/jest": "^29.0.3",
-    "@types/node": "^18.7.18"
+    "@types/node": "^18.7.18",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
   },
   "dependencies": {
     "@hadeshe93/builder-core": "workspace:^0.1.0",
     "@hadeshe93/wpconfig-core": "workspace:^0.1.0",
+    "cheerio": "1.0.0-rc.12",
+    "html-webpack-plugin": "^5.5.0",
+    "postcss-pxtorem": "^6.0.0",
     "webpack": "^5.74.0",
     "webpack-chain": "^6.5.1",
     "webpack-dev-server": "^4.11.1"

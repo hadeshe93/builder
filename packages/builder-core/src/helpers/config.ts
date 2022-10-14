@@ -1,3 +1,4 @@
+import path from 'path';
 import { ProjectConfig, AppProjectConfig, BuilderConfig } from '../typings/index';
 
 /**
@@ -27,7 +28,23 @@ export function formatAppProjectConfig(appProjectConfig: AppProjectConfig): AppP
   const { page, build } = formatProjectConfig(appProjectConfig);
   const projectPath = appProjectConfig.projectPath || '';
   const pageName = appProjectConfig.pageName || '';
-  const middlewares = (appProjectConfig.middlewares || []).filter(m => !!m);
+  const middlewares = (appProjectConfig.middlewares || []).map((m) => {
+    const [mw] = m;
+    // 支持函数
+    if (typeof mw !== 'string') return typeof mw === 'function' ? m : undefined;
+    // 支持绝对路径
+    if (path.isAbsolute(mw)) return m;
+    // 不支持相对路径
+    const relativePathPrefixes = [
+      path.join('.', path.sep),
+      path.join('..', path.sep),
+    ];
+    if (!!relativePathPrefixes.find((prefix) => mw.startsWith(prefix))) return undefined;
+    // 支持直接写 npm 包名
+    const absPath = path.resolve(projectPath, 'node_modules', mw);
+    m[0] = absPath;
+    return m;
+  }).filter(m => !!m);
   return {
     page,
     build,
@@ -49,9 +66,17 @@ export function formatProjectConfig(appProjectConfig: AppProjectConfig): Project
   const page = {
     title: oriPage.title || '页面标题',
     description: oriPage.description || '页面描述',
-    useFlexible: false,
-    useDebugger: false,
+    useFlexible: oriPage.useFlexible || false,
+    useDebugger: oriPage.useDebugger || false,
   };
+  if (page.useFlexible) {
+    page['pxtoremOptions'] = {
+      rootValue: 75,
+      propList: ['*'],
+      unitPrecision: 4,
+      ...(oriPage.pxtoremOptions || {}),
+    };
+  }
   const build = {
     fePort: oriBuild.fePort || 3200,
     publicPath: oriBuild.publicPath || '/',
