@@ -43,7 +43,7 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@gmail.com"
           git config --global user.name "$GITHUB_ACTOR"
       - name: Build Packages
-        run: pnpm turbo:build:packages 
+        run: pnpm turbo:build 
       - name: Create Release Publish to npm
         id: changesets
         uses: changesets/action@v1
