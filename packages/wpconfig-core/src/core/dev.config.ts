@@ -9,8 +9,7 @@ export function getDevChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   chainConfig.devServer
     .hot(true)
     .port(params?.fePort || 3000)
-    .allowedHosts.add('all').end()
-    .overlay(true);
+    .allowedHosts.add('all').end();
   chainConfig.devtool('inline-source-map');
   return chainConfig;
 }

@@ -43,15 +43,14 @@
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
-    "vue": "^3.2.39",
-    "vue-loader": "^16.8.3"
+    "vue": "^3.2.39"
   },
   "peerDependencies": {
-    "vue": "^3.2.39",
-    "vue-loader": "^16.8.3"
+    "vue": "^3.2.39"
   },
   "dependencies": {
     "@hadeshe93/wpconfig-core": "workspace:^0.1.1",
+    "vue-loader": "^16.8.3",
     "webpack": "^5.74.0",
     "webpack-chain": "^6.5.1"
   }
