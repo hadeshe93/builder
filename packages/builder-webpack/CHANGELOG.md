@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.3
+
+### Patch Changes
+
+- e5f1872: 治理包依赖
+- Updated dependencies [e5f1872]
+  - @hadeshe93/wpconfig-core@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
