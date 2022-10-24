@@ -1,39 +1,57 @@
-A convenient configs lib for webpack 5+.
+A core abstract builder for adapting different builders.
 
 ## Installation
 
 ```sh
-$ npm install @hadeshe93/wpconfig-core --save
+# install builder-core
+$ npm install @hadeshe93/builder-core --save-dev
+
+# install builder-webpack or other builders
+$ npm install @hadeshe93/builder-webpack --save-dev
 ```
 
 ## Usage
 
-Use it in `CJS` format:
-
 ```js
-const { getDevChainConfig } = require('@hadeshe93/wpconfig-core');
+import BuilderCore from '@hadeshe93/builder-core';
+import BuilderWebpack from '@hadeshe93/builder-webpack';
 
-// return a WebpackChainConfig instance
-const devChainConfig = getDevChainConfig({
-  projectPath: '/path/to/project',
-  page: 'demo1',
+// initialize builder
+const builder = new BuilderCore({});
+// initialize webpackBuilder
+const webpackBuilder = new BuilderWebpack();
+
+// register
+builder.registerBuilder('webpack', webpackBuilder);
+
+// create excutore
+const excute = builder.createExcutor({
+  mode: 'development',
+  builderName: 'webpack',
+  appProjectConfig: {
+    projectPath: '/path/to/xx',
+    pageName: 'demo1',
+    // optional
+    middlewares: [
+      // middleware and params
+      // actually, @hadeshe93/wpconfig-mw-vue3 doesn`t need params. just for example
+      ['@hadeshe93/wpconfig-mw-vue3', {}]
+    ],
+    page: {
+      title: 'Show',
+      description: '',
+      useFlexible: true,
+      useDebugger: true,
+    },
+    build: {
+      fePort: 3000,
+      publicPath: '/',
+    },
+  }
 });
-// get config in json format
-const config = devChainConfig.toConfig();
-// ...
-```
 
-Use it in `ESM` format:
-
-```js
-import { getDevChainConfig } from '@hadeshe93/lib-node';
-
-// return a WebpackChainConfig instance
-const devChainConfig = getDevChainConfig({
-  projectPath: '/path/to/project',
-  page: 'demo1',
-});
-// get config in json format
-const config = devChainConfig.toConfig();
-// ...
+async function someOperation() {
+  // apply excutor in appropriate time
+  await excute();
+}
 ```

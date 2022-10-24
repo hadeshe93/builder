@@ -1,4 +1,4 @@
-import { BuilderConfig } from '@hadeshe93/builder-core';
+import type { BuilderConfig } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
 import { getWebpackConfigs } from './helpers/configs';
 

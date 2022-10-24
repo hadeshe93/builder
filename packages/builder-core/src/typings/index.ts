@@ -33,6 +33,7 @@ export type AppProjectMiddlewares = AppProjectMiddleware[];
 export interface AppProjectConfig extends ProjectConfig {
   projectPath: string;
   pageName: string;
+  // 处理配置的中间件，它的功能更类似与中间件，加工处理完继续返回给下一个处理
   middlewares: AppProjectMiddlewares;
 }
 

@@ -8,6 +8,27 @@ $ npm install @hadeshe93/wpconfig-core --save
 
 ## Usage
 
+First of all, we recommend this architecture in your web app project:
+
+```
+.
+├── node_modules
+├── package.json
+├── public
+│   ├── favicon.ico
+│   └── index.html
+├── src
+│   ├── common
+│   ├── pages # put different web app pages
+│   │   ├── demo1
+│   │   │   ├── app.vue
+│   │   │   ├── main.ts # entry for builder
+│   │   │   ├── project.config.js
+│   │   └── demo2
+│   └── types
+└── tsconfig.json
+```
+
 Use it in `CJS` format:
 
 ```js
@@ -19,7 +40,7 @@ const devChainConfig = getDevChainConfig({
   page: 'demo1',
 });
 // get config in json format
-const config = devChainConfig.toConfig();
+const webpackConfig = devChainConfig.toConfig();
 // ...
 ```
 
@@ -34,6 +55,6 @@ const devChainConfig = getDevChainConfig({
   page: 'demo1',
 });
 // get config in json format
-const config = devChainConfig.toConfig();
+const webpackConfig = devChainConfig.toConfig();
 // ...
 ```
