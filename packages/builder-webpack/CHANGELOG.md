@@ -1,5 +1,14 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.4
+
+### Patch Changes
+
+- 9e7c089: changeset
+- Updated dependencies [9e7c089]
+  - @hadeshe93/builder-core@0.1.2
+  - @hadeshe93/wpconfig-core@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
