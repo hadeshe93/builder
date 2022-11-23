@@ -1,4 +1,4 @@
-import { resolve as pathResolve } from 'path';
+import { resolve as pathResolve, join as pathJoin } from 'path';
 import fs from 'fs-extra';
 import { getResolve } from './resolver';
 import { generateStringTpl } from './template';
@@ -95,7 +95,8 @@ export function getProdDllOutputPath(options: OptionsForGetPath) {
  * @returns dll 构建产物的输出目录
  */
 export function getProdDllPublicPath(publicPath: string = '/') {
-  return pathResolve(publicPath, DLL_PUBLIC_RELATIVE_PATH);
+  if (publicPath === '/') return DLL_PUBLIC_RELATIVE_PATH;
+  return pathJoin(publicPath, DLL_PUBLIC_RELATIVE_PATH);
 }
 
 /**
@@ -135,7 +136,7 @@ export function getDllPathMap(options: Partial<ParamsGetWebpackChainConfigs>): D
     const manifestJsonPath = autoNameTpl(getProdDllManifestOutputPath({ resolve }), key);
     const manifestJson = require(manifestJsonPath);
     map.set(key, {
-      manifestJsonPath: manifestJsonPath,
+      manifestJsonPath,
       bundleJsPath: pathResolve(OUTPUT_PATH, `${manifestJson.name}.js`),
     });
   }

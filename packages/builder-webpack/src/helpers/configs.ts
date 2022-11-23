@@ -1,5 +1,4 @@
 import { Configuration } from 'webpack';
-import WebpackChain from 'webpack-chain';
 import { BuilderConfig, composeMiddlewares } from '@hadeshe93/builder-core';
 import builderConfigAdpoterMiddleware from '../mws/builder-config-adopter';
 import { getDevChainConfig, getProdChainConfig, getProdDllChainConfig, ParamsGetWebpackChainConfigs } from '@hadeshe93/wpconfig-core';
@@ -11,7 +10,7 @@ import { getDevChainConfig, getProdChainConfig, getProdDllChainConfig, ParamsGet
  * @param {BuilderConfig} buildConfig
  * @returns {*}  {Configuration[]}
  */
-export function getWebpackConfigs(buildConfig: BuilderConfig): Configuration[] {
+export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Configuration)[] {
   const { mode, builderName, appProjectConfig } = buildConfig;
   if (builderName !== 'webpack') return [];
 
@@ -23,17 +22,21 @@ export function getWebpackConfigs(buildConfig: BuilderConfig): Configuration[] {
   const middlewaresList = [];
   if (mode === 'development') {
     // 只且只有一项构建任务
-    middlewaresList[0] = [
-      [() => getDevChainConfig],
-      ...middlewares,
-      ...defaultMiddlewares,
-    ];
+    middlewaresList.push(
+      [
+        [() => getDevChainConfig],
+        ...middlewares,
+        ...defaultMiddlewares,
+      ]
+    );
   } else if (mode === 'production') {
-    middlewaresList[0] = [
-      [() => getProdChainConfig],
-      ...middlewares,
-      ...defaultMiddlewares,
-    ];
+    middlewaresList.push(
+      [
+        [() => getProdChainConfig],
+        ...middlewares,
+        ...defaultMiddlewares,
+      ]
+    );
     // 如果有配置 dllEntryMap，那需要前置一项任务
     if (build.dllEntryMap) {
       middlewaresList.unshift([
@@ -48,7 +51,16 @@ export function getWebpackConfigs(buildConfig: BuilderConfig): Configuration[] {
     publicPath: build.publicPath,
     fePort: build.fePort,
   };
+  if (build.dllEntryMap) params.dllEntryMap = build.dllEntryMap;
   const composedFns = middlewaresList.map((middlewares) => composeMiddlewares(middlewares));
-  const webpackChains: WebpackChain[] = composedFns.map((composedFn) => composedFn(params));
-  return webpackChains.map((chain) => chain.toConfig());
+  // return composedFns.map((composedFn) => () => composedFn(params).toConfig());
+  return composedFns.map((composedFn) => {
+    return () => {
+      const nodeEnv = process.env['NODE_ENV'];
+      console.log('nodeEnv: ', nodeEnv);
+      const c = composedFn(params);
+      const config =  c.toConfig();
+      return config;
+    };
+  });
 }

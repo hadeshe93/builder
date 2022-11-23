@@ -8,6 +8,9 @@ const appProjectConfig: AppProjectConfig = {
     useFlexible: true,
   },
   build: {
+    dllEntryMap: {
+      vueStack: ['vue', 'vue-router', 'pinia']
+    },
   },
   projectPath: '/cbs/xcode/webpack5-starter/packages/webpack5-vue3',
   pageName: 'demo1',
@@ -17,10 +20,11 @@ const appProjectConfig: AppProjectConfig = {
 };
 
 const builderConfig: BuilderConfig = formatBuilderConfig({
-  mode: 'development',
+  mode: 'production',
   builderName: 'webpack',
   appProjectConfig,
 });
 
+process.env['NODE_ENV'] = 'production';
 const builder = new BuilderWebpack();
 builder.start(builderConfig);

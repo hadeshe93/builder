@@ -1,1 +1,2 @@
-import "./dev.test";
+// import "./dev.test";
+import "./build.test";

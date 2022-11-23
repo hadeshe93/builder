@@ -79,8 +79,12 @@ export function formatProjectConfig(appProjectConfig: AppProjectConfig): Project
   }
   const build = {
     fePort: oriBuild.fePort || 3200,
-    publicPath: oriBuild.publicPath || '/',
+    publicPath: oriBuild.publicPath || '',
+    dllEntryMap: oriBuild.dllEntryMap || undefined,
   };
+  if (!build.dllEntryMap) {
+    delete build.dllEntryMap;
+  }
   return {
     page,
     build,

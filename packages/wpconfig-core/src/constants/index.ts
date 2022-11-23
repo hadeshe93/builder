@@ -1,4 +1,11 @@
 import path from 'path';
+import type { CustomedWebpackConfigs } from '../typings/configs';
+
+// 构建模式
+export const ALLOWED_MODES = ['development', 'production'];
+export const MODE_OBJ = {
+  getValue: () => (ALLOWED_MODES.find((mode) => mode === process.env.NODE_ENV) || 'development') as CustomedWebpackConfigs['mode'],
+};
 
 export const PAGE_NAME_PLACEHOLDER = '${pageName}';
 export const AUTO_NAME_PLACEHOLDER = '[name]';

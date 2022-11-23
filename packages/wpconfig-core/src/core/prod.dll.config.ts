@@ -2,6 +2,7 @@ import assert from 'assert';
 import webpack from 'webpack';
 import WebpackChainConfig from 'webpack-chain';
 
+import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
 import { formatParamsGetChainConfig } from '../utils/formatter';
 import { getProdDllOutputPath, getProdDllManifestOutputPath } from '../utils/path';
@@ -17,8 +18,8 @@ export function getProdDllChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const chainConfig = new WebpackChainConfig();
   // base
   chainConfig
-    .mode('production')
-    .context(process.cwd());
+    .mode(MODE_OBJ.getValue())
+    .context(params.projectPath);
   
   // entry
   Object.entries(params.dllEntryMap).forEach(([key, list]) => {
@@ -33,13 +34,14 @@ export function getProdDllChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   // output
   chainConfig.output
     .path(OUTPUT_PATH)
-    .library('[name]_[chunkhash:8]')
-    .filename('[name]_[chunkhash:8].js');
+    .library('[name]_[fullhash]')
+    .filename('[name]_[fullhash].js');
 
   // plugin
   chainConfig.plugin('DllPlugin')
     .use(webpack.DllPlugin, [{
-      name: '[name]_[chunkhash:8]',
+      context: params.projectPath,
+      name: '[name]_[fullhash]',
       path: getProdDllManifestOutputPath({ resolve }),
     }]);
 

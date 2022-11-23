@@ -13,6 +13,10 @@ export function getProdChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const chainConfig = getCommonChainConfig(params);
   const resolve = getResolve(params.projectPath);
   const PARAMS_GET_PATH = { resolve, pageName: params.pageName };
+  console.log('PARAMS_GET_PATH:', PARAMS_GET_PATH, JSON.stringify(params));
+  console.log('publichPath:', getProdDllPublicPath(params.publicPath));
+  console.log('plugin outputPath:', getProdDllOutputPath(PARAMS_GET_PATH));
+  console.log('getProdDllOutputPath:', getProdDllOutputPath);
   // plugin: DllPlugin + AddAssetHtmlPlugin
   if (params.dllEntryMap) {
     [...getDllPathMap(params).entries()].forEach(([key, pathInfo]) => {
@@ -20,18 +24,23 @@ export function getProdChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
       chainConfig
         .plugin(`DllReferencePlugin${pascalCaseKey}`)
         .before('HtmlWebpackPlugin')
-        .use(webpack.DllReferencePlugin, [{ manifest: pathInfo.manifestJsonPath }]);
+        .use(webpack.DllReferencePlugin, [{
+          context: params.projectPath,
+          manifest: pathInfo.manifestJsonPath,
+        }]);
     });
     [...getDllPathMap(params).entries()].forEach(([key, pathInfo]) => {
       const pascalCaseKey = key.replace(/^([\s\S]{1})/, (_, firstLetter: string) => firstLetter.toUpperCase());
       chainConfig
         .plugin(`AddAssetHtmlPlugin${pascalCaseKey}`)
-        .before('HtmlWebpackPlugin')
+        .after('HtmlWebpackPlugin')
         .use(AddAssetHtmlPlugin, [
           {
             publicPath: getProdDllPublicPath(params.publicPath),
-            outputPath: getProdDllOutputPath(PARAMS_GET_PATH),
+            // outputPath: getProdDllOutputPath(PARAMS_GET_PATH),
+            outputPath: '../common/',
             filepath: pathInfo.bundleJsPath,
+            includeRelatedFiles: false,
           },
         ]);
     });

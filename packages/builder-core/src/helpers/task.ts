@@ -8,7 +8,7 @@
  */
  export async function excuteTasks(fns: ((...args: any) => any)[], order: 'serial' | 'parallel' = 'serial') {
   if (order === 'parallel') {
-    return await Promise.all(fns.map((fn) => fn()));
+    return await Promise.all(fns.map(fn => fn()));
   }
   if (order === 'serial') {
     const result = [];

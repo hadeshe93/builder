@@ -10,7 +10,7 @@ import { excuteTasks } from '@hadeshe93/builder-core';
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doDev(configs: Configuration[], order: 'serial' | 'parallel' = 'serial') {
+export async function doDev(configGetters: (() => Configuration)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleDev = (config: Configuration) => {
     const compiler = webpack(config);
     const devServerOptions = { ...config.devServer, open: false };
@@ -18,7 +18,7 @@ export async function doDev(configs: Configuration[], order: 'serial' | 'paralle
     server.start();
   };
   return await excuteTasks(
-    configs.map((config) => () => doSingleDev(config)),
+    configGetters.map((configGetter) => () => doSingleDev(configGetter())),
     order,
   );
 }
@@ -31,9 +31,10 @@ export async function doDev(configs: Configuration[], order: 'serial' | 'paralle
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doBuild(configs: Configuration[], order: 'serial' | 'parallel' = 'serial') {
+export async function doBuild(configGetters: (() => Configuration)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleBuild = (config: Configuration) =>
     new Promise((resolve, reject) => {
+      console.log(config);
       webpack(config, (err, stats) => {
         if (err) {
           console.error(err.stack || err);
@@ -42,21 +43,27 @@ export async function doBuild(configs: Configuration[], order: 'serial' | 'paral
         }
         if (stats.hasErrors()) {
           const errors = stats.toJson().errors;
-          console.error(errors);
+          console.error(JSON.stringify(errors, null, 2));
           reject(errors);
           return;
         }
         console.log(
           stats.toString({
+            // 表示其他缺省项的默认值
+            all: true,
             colors: true,
           }),
+          // stats.toString('normal'),
         );
         resolve(stats);
       });
     });
 
   return await excuteTasks(
-    configs.map((config) => () => doSingleBuild(config)),
+    configGetters.map((configGetter) => () => {
+      const configs = configGetter();
+      return doSingleBuild(configs);
+    }),
     order,
   );
 }

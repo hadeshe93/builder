@@ -1,6 +1,6 @@
 import type { BuilderConfig } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
-import { getWebpackConfigs } from './helpers/configs';
+import { getWebpackConfigGetters } from './helpers/configs';
 
 export default class BuilderWebpack {
   constructor() {
@@ -16,13 +16,13 @@ export default class BuilderWebpack {
     const { mode, builderName } = buildConfig;
     if (builderName !== 'webpack') return;
 
-    const webpackConfigs = getWebpackConfigs(buildConfig);
+    const webpackConfigGetters = getWebpackConfigGetters(buildConfig);
     if (mode === 'development') {
-      await doDev(webpackConfigs, 'serial');
+      await doDev(webpackConfigGetters, 'serial');
       return;
     }
     if (mode === 'production') {
-      await doBuild(webpackConfigs, 'serial');
+      await doBuild(webpackConfigGetters, 'serial');
       return;
     }
   }

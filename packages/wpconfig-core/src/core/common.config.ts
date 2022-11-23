@@ -1,20 +1,20 @@
+import path from 'path';
 import webpack from 'webpack';
 import WebpackChainConfig from 'webpack-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
 import { formatParamsGetChainConfig } from '../utils/formatter';
 import { getAppEntry, getOutputPath, getTemplatePath } from '../utils/path';
-import type { CustomedWebpackConfigs, ParamsGetWebpackChainConfigs } from '../typings/configs';
+import type { ParamsGetWebpackChainConfigs } from '../typings/configs';
 
 export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const params = formatParamsGetChainConfig(oriParams);
   const resolve = getResolve(params.projectPath);
 
-  const ALLOWED_MODES = ['development', 'production'];
-  const MODE = (ALLOWED_MODES.find((mode) => mode === process.env.NODE_ENV) ||
-    'development') as CustomedWebpackConfigs['mode'];
+  const MODE = MODE_OBJ.getValue();
   const IS_DEV_MODE = MODE === 'development';
   const PARAMS_GET_PATH = { resolve, pageName: params.pageName };
   const TEMPLATE_PATH = getTemplatePath(PARAMS_GET_PATH);
@@ -24,7 +24,7 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   // base
   chainConfig
     .mode(MODE)
-    .context(process.cwd());
+    .context(params.projectPath);
 
   // entry
   chainConfig.entry('index')
@@ -83,6 +83,13 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
       .end()
   );
 
+  chainConfig.resolveLoader
+    .modules
+    .add(resolve('node_modules'))
+    .add(path.resolve(process.cwd(), 'node_modules'))
+    .end();
+
+
   // module: assets
   chainConfig.module
     .rule('assets')
@@ -102,6 +109,9 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
 
   // resolve: extensions
   chainConfig.resolve.extensions.add('.ts').add('.tsx').add('...');
+
+  // stats
+  chainConfig.stats('verbose');
 
   // plugin: DefinePlugin
   chainConfig.plugin('DefinePlugin').use(webpack.DefinePlugin, [
