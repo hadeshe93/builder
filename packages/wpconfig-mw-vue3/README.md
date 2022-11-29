@@ -10,7 +10,7 @@ $ npm install @hadeshe93/wpconfig-mw-vue3 --save
 
 ```js
 // use it in esm
-import { getDevChainConfig } from '@hadeshe93/lib-node';
+import { getDevChainConfig } from '@hadeshe93/wpconfig-core';
 import getMWVue3 from '@hadeshe93/wpconfig-mw-vue3'
 
 // return a WebpackChainConfig instance

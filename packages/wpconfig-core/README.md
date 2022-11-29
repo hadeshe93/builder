@@ -47,7 +47,7 @@ const webpackConfig = devChainConfig.toConfig();
 Use it in `ESM` format:
 
 ```js
-import { getDevChainConfig } from '@hadeshe93/lib-node';
+import { getDevChainConfig } from '@hadeshe93/wpconfig-core';
 
 // return a WebpackChainConfig instance
 const devChainConfig = getDevChainConfig({
