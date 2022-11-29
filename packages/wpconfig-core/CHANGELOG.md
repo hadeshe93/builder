@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.5
+
+### Patch Changes
+
+- a14e826: fix: 修复依赖包无法正确查找的问题
+
 ## 0.1.4
 
 ### Patch Changes

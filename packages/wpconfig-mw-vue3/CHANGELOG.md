@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.4
+
+### Patch Changes
+
+- a14e826: fix: 修复依赖包无法正确查找的问题
+
 ## 0.1.3
 
 ### Patch Changes
