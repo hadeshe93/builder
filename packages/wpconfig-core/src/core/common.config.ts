@@ -1,8 +1,9 @@
-import path from 'path';
+// import path from 'path';
 import webpack from 'webpack';
 import WebpackChainConfig from 'webpack-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import findNodeModules from 'find-node-modules';
 
 import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
@@ -83,11 +84,20 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
       .end()
   );
 
-  chainConfig.resolveLoader
-    .modules
-    .add(resolve('node_modules'))
-    .add(path.resolve(process.cwd(), 'node_modules'))
+  // resolveLoader
+  const projectNodeModulePaths = findNodeModules({ cwd: resolve('./'), relative: false }) || [];
+  const cwdNodeModulePaths = findNodeModules({ cwd: process.cwd(), relative: false }) || [];
+  const excutorNodeModulePaths = findNodeModules({ cwd: process.argv[0], relative: false }) || [];
+  const nodeModulePaths = Array.from(new Set([].concat(projectNodeModulePaths, cwdNodeModulePaths, excutorNodeModulePaths)));
+  chainConfig.resolveLoader.modules
+    .merge(nodeModulePaths)
     .end();
+
+  // chainConfig.resolveLoader
+  //   .modules
+  //   .add(resolve('node_modules'))
+  //   .add(path.resolve(process.cwd(), 'node_modules'))
+  //   .end();
 
 
   // module: assets
