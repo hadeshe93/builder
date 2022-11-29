@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.5
+
+### Patch Changes
+
+- c983f0c: docs: 更新文档
+
 ## 0.1.4
 
 ### Patch Changes

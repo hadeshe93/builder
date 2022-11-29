@@ -1,5 +1,13 @@
 # @hadeshe93/wpconfig-mw-react17
 
+## 0.1.2
+
+### Patch Changes
+
+- c983f0c: docs: 更新文档
+- Updated dependencies [c983f0c]
+  - @hadeshe93/wpconfig-core@0.1.6
+
 ## 0.1.1
 
 ### Patch Changes
