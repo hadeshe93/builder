@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.1.3
+
+### Patch Changes
+
+- 修复 this 的指向问题
+
 ## 0.1.2
 
 ### Patch Changes
