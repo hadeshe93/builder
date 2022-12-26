@@ -69,7 +69,7 @@ export default class BuilderCore {
    */
   public createExcutor(oriConfigs: BuilderConfig[]) {
     const configs = (oriConfigs || []).map(formatBuilderConfig);
-    return async function start(order: BuildOrderType = 'serial'): Promise<any> {
+    const start = async (order: BuildOrderType = 'serial'): Promise<any> => {
       const tasks = configs
         .map((configItem) => {
           const { builderName } = configItem;
@@ -85,5 +85,6 @@ export default class BuilderCore {
         .filter((task) => !!task);
       return await excuteTasks(tasks, order);
     };
+    return start;
   }
 }
