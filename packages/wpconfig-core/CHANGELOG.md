@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.7
+
+### Patch Changes
+
+- 修复 wpconfig-core 里面 loader 的查找路径
+
 ## 0.1.6
 
 ### Patch Changes
