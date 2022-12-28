@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.5
+
+### Patch Changes
+
+- 修复 builder-webpack 打包构建之后文件无法找到的问题
+
 ## 0.1.4
 
 ### Patch Changes
