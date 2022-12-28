@@ -1,3 +1,4 @@
+export default `
 (function () {
   function main(window, document) {
     var NAMESPACE = '$presets$';
@@ -120,3 +121,4 @@
 
   return main;
 })()(window, document);
+`;

@@ -1,8 +1,7 @@
-import fs from 'fs-extra';
-import path from 'path';
 import { Compiler } from 'webpack';
 import * as cheerio from 'cheerio';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import rawScriptContent from './partial-scripts';
 
 export interface HtmlInjectionPluginOptions {
   title?: string;
@@ -34,7 +33,7 @@ export default class HtmlInjectionPlugin {
     compiler.hooks.compilation.tap(this.name, (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(this.name, async (data, cb) => {
         const $ = cheerio.load(data.html);
-        let scriptContent = fs.readFileSync(path.resolve(__dirname, './partial-scripts.js'), 'utf-8') as string;
+        let scriptContent = rawScriptContent;
         if (!this.options.useFlexible) {
           scriptContent = this.removePresetContent(scriptContent, 'useFlexible');
         }
