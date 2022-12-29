@@ -49,7 +49,6 @@
     "react-refresh": "^0.14.0"
   },
   "dependencies": {
-    "@hadeshe93/wpconfig-core": "workspace:^0.1.7",
     "webpack": "^5.74.0",
     "webpack-chain": "^6.5.1"
   },

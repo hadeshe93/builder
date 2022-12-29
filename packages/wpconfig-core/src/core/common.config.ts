@@ -22,6 +22,20 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const TEMPLATE_PATH = getTemplatePath(PARAMS_GET_PATH);
   const PUBLIC_PATH = params.publicPath;
 
+  // 允许的 node_modules 的查找路径
+  const pathListTofindModules = [
+    resolve('./'),
+    process.cwd(),
+    process.argv[0],
+    __dirname,
+  ];
+  const nodeModulePaths = Array.from(new Set([
+    ...pathListTofindModules.map(cwd => findNodeModules({ cwd, relative: false }))
+  ]));
+  const requireResolve = (moduleName) => require.resolve(moduleName, {
+    paths: nodeModulePaths,
+  })
+
   const chainConfig = new WebpackChainConfig();
   // base
   chainConfig
@@ -52,7 +66,7 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
       cacheDirectory: true,
       presets: [
         [
-          '@babel/preset-env',
+          requireResolve('@babel/preset-env'),
           {
             useBuiltIns: 'usage',
             corejs: 3,
@@ -61,13 +75,13 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
           },
         ],
         [
-          '@babel/preset-typescript',
+          requireResolve('@babel/preset-typescript'),
           {
             allExtensions: true,
           },
         ],
       ],
-      plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
+      plugins: [[requireResolve('@babel/plugin-transform-runtime'), { corejs: 3 }]],
     });
 
   // module: css | scss | less
@@ -86,11 +100,6 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   );
 
   // resolveLoader
-  const projectNodeModulePaths = findNodeModules({ cwd: resolve('./'), relative: false }) || [];
-  const cwdNodeModulePaths = findNodeModules({ cwd: process.cwd(), relative: false }) || [];
-  const excutorNodeModulePaths = findNodeModules({ cwd: process.argv[0], relative: false }) || [];
-  const currentNodeModulePaths = findNodeModules({ cwd: __dirname, relative: false }) || [];
-  const nodeModulePaths = Array.from(new Set([].concat(projectNodeModulePaths, cwdNodeModulePaths, excutorNodeModulePaths, currentNodeModulePaths)));
   debug(`resolveLoader.modules: ${JSON.stringify(nodeModulePaths, null, 2)}`);
   chainConfig.resolveLoader.modules
     .merge(nodeModulePaths)
