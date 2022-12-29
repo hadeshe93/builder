@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.8
+
+### Patch Changes
+
+- 修复依赖包的引入路径
+
 ## 0.1.7
 
 ### Patch Changes

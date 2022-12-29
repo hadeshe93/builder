@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-react17
 
+## 0.1.4
+
+### Patch Changes
+
+- 修复依赖包的引入路径
+
 ## 0.1.3
 
 ### Patch Changes
