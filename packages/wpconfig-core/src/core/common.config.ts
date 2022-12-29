@@ -133,7 +133,7 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   chainConfig.resolve.extensions.add('.ts').add('.tsx').add('...');
 
   // stats
-  chainConfig.stats('verbose');
+  chainConfig.stats('normal');
 
   // plugin: DefinePlugin
   chainConfig.plugin('DefinePlugin').use(webpack.DefinePlugin, [

@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.9
+
+### Patch Changes
+
+- 完善包的依赖关系
+- Updated dependencies
+  - @hadeshe93/wpconfig-core@0.1.10
+
 ## 0.1.8
 
 ### Patch Changes

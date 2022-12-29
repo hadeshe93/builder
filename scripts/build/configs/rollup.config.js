@@ -18,8 +18,6 @@ import { rollupPluginDelete } from './plugins/rollup-plugin-delete';
 const {
   // 构建目标 package 名
   TARGET: ENV_TARGET,
-  // 是否需要 source map
-  SOURCE_MAP: ENV_SOURCE_MAP,
 } = process.env;
 
 const isEnvProduction = checkIsDevEnv();
@@ -85,7 +83,7 @@ function createConfig(options = {}) {
   const output = {
     ...outputConfig,
     exports: 'auto',
-    sourcemap: ENV_SOURCE_MAP,
+    sourcemap: true,
   };
 
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
@@ -197,7 +195,7 @@ function createDeclarationConfig(options = {}) {
   const output = {
     ...outputConfig,
     exports: 'auto',
-    sourcemap: ENV_SOURCE_MAP,
+    sourcemap: false,
   };
 
   const extensions = ['.ts', '.tsx', 'd.ts', '.js', '.jsx', '.json', '.mjs'];

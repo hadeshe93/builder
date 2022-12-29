@@ -56,8 +56,6 @@ export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Conf
   // return composedFns.map((composedFn) => () => composedFn(params).toConfig());
   return composedFns.map((composedFn) => {
     return () => {
-      const nodeEnv = process.env['NODE_ENV'];
-      console.log('nodeEnv: ', nodeEnv);
       const c = composedFn(params);
       const config =  c.toConfig();
       return config;
