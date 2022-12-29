@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-react17
 
+## 0.1.3
+
+### Patch Changes
+
+- 提升依赖包版本
+
 ## 0.1.2
 
 ### Patch Changes
