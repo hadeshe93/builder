@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/builder-webpack",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -54,7 +54,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime-corejs3": "^7.18.3",
     "@hadeshe93/builder-core": "workspace:^0.1.2",
-    "@hadeshe93/wpconfig-core": "workspace:^0.1.8",
+    "@hadeshe93/wpconfig-core": "workspace:^0.1.9",
     "babel-loader": "^8.2.5",
     "cheerio": "1.0.0-rc.12",
     "core-js": "^3",

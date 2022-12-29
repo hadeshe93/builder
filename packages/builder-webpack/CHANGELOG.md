@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.8
+
+### Patch Changes
+
+- 提升依赖包版本
+
 ## 0.1.7
 
 ### Patch Changes
