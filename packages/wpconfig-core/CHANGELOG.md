@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.9
+
+### Patch Changes
+
+- 修复包路径
+
 ## 0.1.8
 
 ### Patch Changes

@@ -29,9 +29,9 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
     process.argv[0],
     __dirname,
   ];
-  const nodeModulePaths = Array.from(new Set([
-    ...pathListTofindModules.map(cwd => findNodeModules({ cwd, relative: false }))
-  ]));
+  const nodeModulePaths = Array.from(new Set([].concat(
+    ...pathListTofindModules.map(cwd => findNodeModules({ cwd, relative: false }) || [])
+  )));
   const requireResolve = (moduleName) => require.resolve(moduleName, {
     paths: nodeModulePaths,
   })
