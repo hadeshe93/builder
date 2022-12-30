@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.7
+
+### Patch Changes
+
+- 提升依赖包版本
+
 ## 0.1.6
 
 ### Patch Changes
