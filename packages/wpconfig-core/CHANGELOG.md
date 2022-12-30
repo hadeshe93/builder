@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.11
+
+### Patch Changes
+
+- 补充导出常量
+
 ## 0.1.10
 
 ### Patch Changes

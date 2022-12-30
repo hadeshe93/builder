@@ -13,7 +13,7 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
-    "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
+    "smoke-test": "cross-env NODE_ENV=development DEBUG=@hadeshe93/* ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
     "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts builder-webpack"
   },
   "types": "dist/index.d.ts",
