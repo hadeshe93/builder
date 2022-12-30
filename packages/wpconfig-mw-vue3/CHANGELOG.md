@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.9
+
+### Patch Changes
+
+- 修复 vue-loader 的解析路径
+
 ## 0.1.8
 
 ### Patch Changes

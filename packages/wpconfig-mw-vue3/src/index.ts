@@ -3,25 +3,18 @@ import type WebpackChainConfig from 'webpack-chain';
 
 export default function() {
   return function(chainConfig: WebpackChainConfig): WebpackChainConfig {
-    const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
+    const requireResolve = getRequireResolve(getNodeModulePaths([__dirname]));
+    const vueLoaderAbsPath = requireResolve('vue-loader');
+    const VueLoaderPlugin = require(vueLoaderAbsPath).VueLoaderPlugin;
     chainConfig.plugin('VueLoaderPlugin').use(VueLoaderPlugin, []);
 
     chainConfig.module
       .rule('vue')
       .test(/\.vue$/)
       .use('vue-loader')
-      .loader('vue-loader')
+      .loader(vueLoaderAbsPath)
       .end();
-    
-    // vue-loader 比较特殊，这种写法应该可以兼容 npm/yarn 和 pnpm 安装依赖的场景
-    const requireResolve = getRequireResolve(getNodeModulePaths([__dirname]));
-    chainConfig.merge({
-      resolve: {
-        fallback: {
-          'vue-loader': requireResolve('vue-loader'),
-        },
-      },
-    });
+
     return chainConfig;
   };
 }
