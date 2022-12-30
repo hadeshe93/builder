@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.13
+
+### Patch Changes
+
+- 修复入参默认值
+
 ## 0.1.12
 
 ### Patch Changes

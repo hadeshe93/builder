@@ -20,7 +20,7 @@ export function getResolve(projectPath: string): (...pathnameList: string[]) => 
  * @param {boolean} [replacePresets=false]
  * @returns {*} 
  */
-export function getNodeModulePaths(extraSearchList: string[], replacePresets = false) {
+export function getNodeModulePaths(extraSearchList: string[] = [], replacePresets = false) {
   const pathListTofindModules = replacePresets ? (extraSearchList || []) : [
     ...(extraSearchList || []),
     process.cwd(),
