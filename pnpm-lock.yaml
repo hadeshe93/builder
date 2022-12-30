@@ -188,6 +188,7 @@ importers:
 
   packages/wpconfig-mw-vue3:
     specifiers:
+      '@hadeshe93/wpconfig-core': workspace:^0.1.12
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       vue: ^3.2.39
@@ -195,6 +196,7 @@ importers:
       webpack: ^5.74.0
       webpack-chain: ^6.5.1
     dependencies:
+      '@hadeshe93/wpconfig-core': link:../wpconfig-core
       vue-loader: 16.8.3_vue@3.2.41+webpack@5.74.0
       webpack: 5.74.0
       webpack-chain: 6.5.1

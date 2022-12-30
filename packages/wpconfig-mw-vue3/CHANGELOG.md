@@ -1,5 +1,13 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.6
+
+### Patch Changes
+
+- 完善 requireResolve
+- Updated dependencies
+  - @hadeshe93/wpconfig-core@0.1.12
+
 ## 0.1.5
 
 ### Patch Changes

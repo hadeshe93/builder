@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/wpconfig-mw-vue3",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -49,6 +49,7 @@
     "vue": "^3.2.39"
   },
   "dependencies": {
+    "@hadeshe93/wpconfig-core": "workspace:^0.1.12",
     "vue-loader": "^16.8.3",
     "webpack": "^5.74.0",
     "webpack-chain": "^6.5.1"

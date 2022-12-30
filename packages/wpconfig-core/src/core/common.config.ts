@@ -3,13 +3,13 @@ import webpack from 'webpack';
 import WebpackChainConfig from 'webpack-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import findNodeModules from 'find-node-modules';
 
 import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
 import { formatParamsGetChainConfig } from '../utils/formatter';
 import { getAppEntry, getOutputPath, getTemplatePath } from '../utils/path';
 import { debug } from '../utils/debug';
+import { getRequireResolve, getNodeModulePaths } from '../utils/resolver';
 import type { ParamsGetWebpackChainConfigs } from '../typings/configs';
 
 export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
@@ -21,20 +21,8 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const PARAMS_GET_PATH = { resolve, pageName: params.pageName };
   const TEMPLATE_PATH = getTemplatePath(PARAMS_GET_PATH);
   const PUBLIC_PATH = params.publicPath;
-
-  // 允许的 node_modules 的查找路径
-  const pathListTofindModules = [
-    resolve('./'),
-    process.cwd(),
-    process.argv[0],
-    __dirname,
-  ];
-  const nodeModulePaths = Array.from(new Set([].concat(
-    ...pathListTofindModules.map(cwd => findNodeModules({ cwd, relative: false }) || [])
-  )));
-  const requireResolve = (moduleName) => require.resolve(moduleName, {
-    paths: nodeModulePaths,
-  })
+  const nodeModulePaths = getNodeModulePaths([resolve('./')]);
+  const requireResolve = getRequireResolve(nodeModulePaths);
 
   const chainConfig = new WebpackChainConfig();
   // base

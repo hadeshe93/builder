@@ -1,3 +1,4 @@
+import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/wpconfig-core';
 import type WebpackChainConfig from 'webpack-chain';
 
 export default function() {
@@ -13,10 +14,11 @@ export default function() {
       .end();
     
     // vue-loader 比较特殊，这种写法应该可以兼容 npm/yarn 和 pnpm 安装依赖的场景
+    const requireResolve = getRequireResolve(getNodeModulePaths());
     chainConfig.merge({
       resolve: {
         fallback: {
-          'vue-loader': require.resolve('vue-loader'),
+          'vue-loader': requireResolve('vue-loader'),
         },
       },
     });

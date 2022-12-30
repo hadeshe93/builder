@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.12
+
+### Patch Changes
+
+- 完善 requireResolve
+
 ## 0.1.11
 
 ### Patch Changes
