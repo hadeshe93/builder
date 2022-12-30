@@ -14,7 +14,7 @@ export default function() {
       .end();
     
     // vue-loader 比较特殊，这种写法应该可以兼容 npm/yarn 和 pnpm 安装依赖的场景
-    const requireResolve = getRequireResolve(getNodeModulePaths());
+    const requireResolve = getRequireResolve(getNodeModulePaths([__dirname]));
     chainConfig.merge({
       resolve: {
         fallback: {

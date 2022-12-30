@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.8
+
+### Patch Changes
+
+- 优化查找路径
+
 ## 0.1.7
 
 ### Patch Changes
