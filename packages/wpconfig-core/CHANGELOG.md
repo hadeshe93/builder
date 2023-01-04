@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.14
+
+### Patch Changes
+
+- 调整包查找路径优先级
+
 ## 0.1.13
 
 ### Patch Changes

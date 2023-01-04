@@ -24,8 +24,8 @@ export function getNodeModulePaths(extraSearchList: string[] = [], replacePreset
   const pathListTofindModules = replacePresets ? (extraSearchList || []) : [
     ...(extraSearchList || []),
     process.cwd(),
-    process.argv[0],
     __dirname,
+    process.argv[0],
   ];
   const nodeModulePaths = Array.from(new Set([].concat(
     ...pathListTofindModules.map(cwd => findNodeModules({ cwd, relative: false }) || [])
