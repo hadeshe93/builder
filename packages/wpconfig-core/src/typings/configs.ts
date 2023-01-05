@@ -38,6 +38,7 @@ export type DllEntryMap = Record<string, string[]> | false | undefined | null | 
 export interface ParamsGetWebpackChainConfigs {
   projectPath: string;
   pageName: string;
+  mode?: CustomedWebpackConfigs['mode'],
   publicPath?: string;
   fePort?: number;
   dllEntryMap?: DllEntryMap;

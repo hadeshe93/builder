@@ -4,7 +4,7 @@ export * from './core/dev.config';
 export * from './core/prod.config';
 export * from './core/prod.dll.config';
 
-export * from './utils/env';
+export * from './utils/mode';
 export * from './utils/resolver';
 export * from './utils/template';
 export * from './utils/path';

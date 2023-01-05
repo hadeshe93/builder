@@ -2,8 +2,8 @@ import assert from 'assert';
 import webpack from 'webpack';
 import WebpackChainConfig from 'webpack-chain';
 
-import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
+import { getEnvMode } from '../utils/mode';
 import { formatParamsGetChainConfig } from '../utils/formatter';
 import { getProdDllOutputPath, getProdDllManifestOutputPath } from '../utils/path';
 import type { ParamsGetWebpackChainConfigs } from '../typings/configs';
@@ -14,11 +14,12 @@ export function getProdDllChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
 
   const resolve = getResolve(params.projectPath);
   const OUTPUT_PATH = getProdDllOutputPath({ resolve });
+  const MODE = getEnvMode(params.mode);
 
   const chainConfig = new WebpackChainConfig();
   // base
   chainConfig
-    .mode(MODE_OBJ.getValue())
+    .mode(MODE)
     .context(params.projectPath);
   
   // entry

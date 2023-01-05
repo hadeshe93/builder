@@ -24,7 +24,6 @@ const builderConfig: BuilderConfig = formatBuilderConfig({
   builderName: 'webpack',
   appProjectConfig,
 });
-
-process.env['NODE_ENV'] = 'production';
+// process.env['NODE_ENV'] = 'production';
 const builder = new BuilderWebpack();
 builder.start(builderConfig);

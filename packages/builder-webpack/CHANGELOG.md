@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.11
+
+### Patch Changes
+
+- 优化代码
+- Updated dependencies
+  - @hadeshe93/wpconfig-core@0.1.15
+
 ## 0.1.10
 
 ### Patch Changes

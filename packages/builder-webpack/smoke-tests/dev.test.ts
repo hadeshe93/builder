@@ -23,4 +23,6 @@ const builderConfig: BuilderConfig = formatBuilderConfig({
 });
 
 const builder = new BuilderWebpack();
-builder.start(builderConfig);
+builder.start(builderConfig).then(() => {
+  console.log('启动成功');
+});

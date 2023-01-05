@@ -17,13 +17,17 @@ export default class BuilderWebpack {
     if (builderName !== 'webpack') return;
 
     const webpackConfigGetters = getWebpackConfigGetters(buildConfig);
-    if (mode === 'development') {
-      await doDev(webpackConfigGetters, 'serial');
-      return;
-    }
-    if (mode === 'production') {
-      await doBuild(webpackConfigGetters, 'serial');
-      return;
+    const taskDescriptorMap = {
+      development: async () => {
+        await doDev(webpackConfigGetters, 'serial');
+      },
+      production: async () => {
+        await doBuild(webpackConfigGetters, 'serial');
+      },
+    };
+    const excuteTask = taskDescriptorMap[mode];
+    if (excuteTask) {
+      await excuteTask();
     }
   }
 }

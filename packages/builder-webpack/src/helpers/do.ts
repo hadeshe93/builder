@@ -1,6 +1,7 @@
 import webpack, { Configuration } from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import { excuteTasks } from '@hadeshe93/builder-core';
+import { debug } from '../utils/debug';
 
 /**
  * 启动 webpack 调试
@@ -15,7 +16,8 @@ export async function doDev(configGetters: (() => Configuration)[], order: 'seri
     const compiler = webpack(config);
     const devServerOptions = { ...config.devServer, open: false };
     const server = new WebpackDevServer(devServerOptions, compiler);
-    server.start();
+    // start 方法会返回一个 promise
+    return server.start();
   };
   return await excuteTasks(
     configGetters.map((configGetter) => () => doSingleDev(configGetter())),
@@ -34,7 +36,7 @@ export async function doDev(configGetters: (() => Configuration)[], order: 'seri
 export async function doBuild(configGetters: (() => Configuration)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleBuild = (config: Configuration) =>
     new Promise((resolve, reject) => {
-      console.log(config);
+      debug('%O', config);
       webpack(config, (err, stats) => {
         if (err) {
           console.error(err.stack || err);

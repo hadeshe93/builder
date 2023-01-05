@@ -4,8 +4,8 @@ import WebpackChainConfig from 'webpack-chain';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import { MODE_OBJ } from '../constants/index';
 import { getResolve } from '../utils/resolver';
+import { checkIsEnvDevMode } from '../utils/mode';
 import { formatParamsGetChainConfig } from '../utils/formatter';
 import { getAppEntry, getOutputPath, getTemplatePath } from '../utils/path';
 import { debug } from '../utils/debug';
@@ -16,8 +16,11 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const params = formatParamsGetChainConfig(oriParams);
   const resolve = getResolve(params.projectPath);
 
-  const MODE = MODE_OBJ.getValue();
-  const IS_DEV_MODE = MODE === 'development';
+  const MODE = params.mode;
+  const IS_DEV_MODE = checkIsEnvDevMode(MODE);
+  // 由于 DefinePulgin 要求 NODE_ENV 必须等于 mode，所以这里统一设置 process.env
+  process.env['NODE_ENV'] = MODE;
+
   const PARAMS_GET_PATH = { resolve, pageName: params.pageName };
   const TEMPLATE_PATH = getTemplatePath(PARAMS_GET_PATH);
   const PUBLIC_PATH = params.publicPath;
@@ -126,7 +129,8 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   // plugin: DefinePlugin
   chainConfig.plugin('DefinePlugin').use(webpack.DefinePlugin, [
     {
-      'process.env.NODE_ENV': JSON.stringify(MODE),
+      'process.env.NODE_ENV': JSON.stringify(process.env['NODE_ENV']),
+      '__WEBPACK_MODE__': JSON.stringify(MODE),
     },
   ]);
 

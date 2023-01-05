@@ -46,6 +46,7 @@ export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Conf
   }
 
   const params: ParamsGetWebpackChainConfigs = {
+    mode,
     projectPath,
     pageName,
     publicPath: build.publicPath,

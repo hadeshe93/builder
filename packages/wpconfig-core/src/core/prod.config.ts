@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import AddAssetHtmlPlugin from 'add-asset-html-webpack-plugin';
 
+import { debug } from '../utils/debug';
 import { getResolve } from '../utils/resolver';
 import { getCommonChainConfig } from './common.config';
 import { formatParamsGetChainConfig } from '../utils/formatter';
@@ -13,10 +14,8 @@ export function getProdChainConfig(oriParams: ParamsGetWebpackChainConfigs) {
   const chainConfig = getCommonChainConfig(params);
   const resolve = getResolve(params.projectPath);
   const PARAMS_GET_PATH = { resolve, pageName: params.pageName };
-  console.log('PARAMS_GET_PATH:', PARAMS_GET_PATH, JSON.stringify(params));
-  console.log('publichPath:', getProdDllPublicPath(params.publicPath));
-  console.log('plugin outputPath:', getProdDllOutputPath(PARAMS_GET_PATH));
-  console.log('getProdDllOutputPath:', getProdDllOutputPath);
+  debug('publichPath:', getProdDllPublicPath(params.publicPath));
+  debug('plugin outputPath:', getProdDllOutputPath(PARAMS_GET_PATH));
   // plugin: DllPlugin + AddAssetHtmlPlugin
   if (params.dllEntryMap) {
     [...getDllPathMap(params).entries()].forEach(([key, pathInfo]) => {

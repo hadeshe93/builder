@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-core
 
+## 0.1.15
+
+### Patch Changes
+
+- 优化代码
+
 ## 0.1.14
 
 ### Patch Changes
