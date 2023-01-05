@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.10
+
+### Patch Changes
+
+- 更新依赖包版本
+
 ## 0.1.9
 
 ### Patch Changes

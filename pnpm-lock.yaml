@@ -70,8 +70,8 @@ importers:
   packages/builder-webpack:
     specifiers:
       '@hadeshe93/builder-core': workspace:^0.1.2
-      '@hadeshe93/wpconfig-core': workspace:^0.1.10
-      '@hadeshe93/wpconfig-mw-vue3': workspace:^0.1.3
+      '@hadeshe93/wpconfig-core': workspace:^0.1.14
+      '@hadeshe93/wpconfig-mw-vue3': workspace:^0.1.10
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       cheerio: 1.0.0-rc.12
@@ -188,7 +188,7 @@ importers:
 
   packages/wpconfig-mw-vue3:
     specifiers:
-      '@hadeshe93/wpconfig-core': workspace:^0.1.13
+      '@hadeshe93/wpconfig-core': workspace:^0.1.14
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       vue: ^3.2.39
