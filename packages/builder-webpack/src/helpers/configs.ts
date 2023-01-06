@@ -1,8 +1,9 @@
 import { Configuration } from 'webpack';
 import { BuilderConfig, composeMiddlewares } from '@hadeshe93/builder-core';
-import builderConfigAdpoterMiddleware from '../mws/builder-config-adopter';
 import { getDevChainConfig, getProdChainConfig, getProdDllChainConfig, ParamsGetWebpackChainConfigs } from '@hadeshe93/wpconfig-core';
 
+import builderConfigAdpoterMiddleware from '../mws/builder-config-adopter';
+import { ProjectConfig } from '../typings/index';
 /**
  * 获取 webpack 的构建配置列表
  *
@@ -62,4 +63,16 @@ export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Conf
       return config;
     };
   });
+}
+
+/**
+ * 定义项目核心构建配置
+ * - 核心是对外提供类型帮助
+ *
+ * @export
+ * @param {ProjectConfig} projectConfig
+ * @returns {*}  {ProjectConfig}
+ */
+export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
+  return projectConfig;
 }

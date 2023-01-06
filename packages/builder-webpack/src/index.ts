@@ -1,6 +1,12 @@
 import type { BuilderConfig } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
-import { getWebpackConfigGetters } from './helpers/configs';
+import { getWebpackConfigGetters, defineProjectConfig } from './helpers/configs';
+
+import {
+  ProjectMiddleware,
+  ProjectMiddlewares,
+  ProjectConfig,
+} from './typings/index';
 
 export default class BuilderWebpack {
   constructor() {
@@ -32,3 +38,12 @@ export default class BuilderWebpack {
   }
 }
 
+export {
+  defineProjectConfig,
+};
+
+export type {
+  ProjectMiddleware,
+  ProjectMiddlewares,
+  ProjectConfig,
+}

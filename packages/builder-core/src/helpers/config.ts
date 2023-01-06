@@ -102,7 +102,7 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
  * - 核心是对外提供类型帮助
  *
  * @export
- * @param {AppProjectConfig} projectConfig
+ * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
 export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {

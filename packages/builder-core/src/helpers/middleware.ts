@@ -1,6 +1,6 @@
 import path from 'path';
 import { compose } from '../utils/fp';
-import { AppProjectMiddlewares } from '../typings/index';
+import { ProjectMiddlewares } from '../typings/index';
 
 function actualRequire(moduleName) {
   const middlewareModule = require(moduleName);
@@ -27,10 +27,10 @@ export function loadMiddleware(m: string | Function) {
  * 组合中间件
  *
  * @export
- * @param {AppProjectMiddlewares} middlewares
+ * @param {ProjectMiddlewares} middlewares
  * @returns {*} 
  */
-export function composeMiddlewares(middlewares: AppProjectMiddlewares) {
+export function composeMiddlewares(middlewares: ProjectMiddlewares) {
   const mList = middlewares.reduce((sum, m) => {
     const [name, ...options] = m;
     const middleware = loadMiddleware(name)(...options);

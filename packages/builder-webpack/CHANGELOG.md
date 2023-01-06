@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.1.12
+
+### Patch Changes
+
+- 完善提供的类型定义
+- Updated dependencies
+  - @hadeshe93/builder-core@0.1.6
+
 ## 0.1.11
 
 ### Patch Changes

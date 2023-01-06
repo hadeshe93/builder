@@ -5,8 +5,10 @@ import { formatBuilderConfig, formatAppProjectConfig, formatProjectConfig, defin
 import {
   BuildOrderType,
   BuilderConfig,
+  ProjectConfig,
   AppProjectConfig,
-  AppProjectMiddlewares,
+  ProjectMiddleware,
+  ProjectMiddlewares,
   SupportedBuilderInsMap,
   SupportedBuilderNames,
   SupportedBuilderMode,
@@ -21,8 +23,10 @@ export { composeMiddlewares } from './helpers/middleware';
 
 export type {
   BuilderConfig,
+  ProjectConfig,
   AppProjectConfig,
-  AppProjectMiddlewares,
+  ProjectMiddleware,
+  ProjectMiddlewares,
   SupportedBuilderNames,
   SupportedBuilderMode,
   BuilderCoreOptions,

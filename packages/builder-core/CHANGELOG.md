@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.1.6
+
+### Patch Changes
+
+- 完善提供的类型定义
+
 ## 0.1.5
 
 ### Patch Changes

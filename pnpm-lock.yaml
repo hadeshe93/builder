@@ -71,7 +71,7 @@ importers:
 
   packages/builder-webpack:
     specifiers:
-      '@hadeshe93/builder-core': workspace:^0.1.2
+      '@hadeshe93/builder-core': workspace:^0.1.6
       '@hadeshe93/wpconfig-core': workspace:^0.1.15
       '@hadeshe93/wpconfig-mw-vue3': workspace:^0.1.10
       '@types/debug': ^4.1.7

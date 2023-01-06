@@ -27,11 +27,11 @@ export interface ProjectConfig {
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
   };
   // 处理配置的中间件，它的功能更类似与中间件，加工处理完继续返回给下一个处理
-  middlewares: AppProjectMiddlewares;
+  middlewares: ProjectMiddlewares;
 }
 
-export type AppProjectMiddleware = [string, any?] | [(...args: any[]) => any, any?];
-export type AppProjectMiddlewares = AppProjectMiddleware[];
+export type ProjectMiddleware = [string, any?] | [(...args: any[]) => any, any?];
+export type ProjectMiddlewares = ProjectMiddleware[];
 
 export interface AppProjectConfig extends ProjectConfig {
   projectPath: string;
