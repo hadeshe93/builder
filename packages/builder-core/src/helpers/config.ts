@@ -105,6 +105,6 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
  * @param {AppProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig(projectConfig: AppProjectConfig): ProjectConfig {
+export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
   return projectConfig;
 }
