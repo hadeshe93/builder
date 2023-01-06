@@ -192,7 +192,7 @@ importers:
 
   packages/wpconfig-mw-vue3:
     specifiers:
-      '@hadeshe93/wpconfig-core': workspace:^0.1.14
+      '@hadeshe93/wpconfig-core': workspace:^0.1.15
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       vue: ^3.2.39
