@@ -1,7 +1,9 @@
+import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/wpconfig-core';
 import type WebpackChainConfig from 'webpack-chain';
 
 export default function() {
   return function(chainConfig: WebpackChainConfig): WebpackChainConfig {
+    const requireResolve = getRequireResolve(getNodeModulePaths([__dirname]));
     chainConfig.module
       .rule('script')
       .use('babel')
@@ -12,7 +14,7 @@ export default function() {
         const REACT_REFRESH_WEBPACK_PLUGIN = '@pmmmwh/react-refresh-webpack-plugin';
 
         // 1. set the 'allExtensions' option to false when using react
-        const presetTsIndex = options.presets.findIndex(item => item[0] === BABEL_PRESET_TYPESCRIPT);
+        const presetTsIndex = options.presets.findIndex(item => item[0].indexOf(BABEL_PRESET_TYPESCRIPT) >= 0);
         const presetTs = options.presets[presetTsIndex];
         if (Array.isArray(presetTs)) {
           presetTs[1] = {
@@ -21,14 +23,15 @@ export default function() {
           }
         }
         // 2. add the preset named '@babel/preset-react' and place it before '@babel/preset-typescript'
+        const RESOLVED_BABEL_PRESET_REACT = requireResolve(BABEL_PRESET_REACT);
         if (presetTsIndex > -1) {
-          options.presets.splice(presetTsIndex, 0, BABEL_PRESET_REACT);
+          options.presets.splice(presetTsIndex, 0, RESOLVED_BABEL_PRESET_REACT);
         } else {
-          options.presets.push(BABEL_PRESET_REACT);
+          options.presets.push(RESOLVED_BABEL_PRESET_REACT);
         }
         // 3. add react refresh plugin for webpack
         chainConfig.plugin(REACT_REFRESH_WEBPACK_PLUGIN)
-          .use(require(REACT_REFRESH_WEBPACK_PLUGIN), [{ overlay: false }])
+          .use(requireResolve(REACT_REFRESH_WEBPACK_PLUGIN), [{ overlay: false }])
         return options;
       });
     return chainConfig;
