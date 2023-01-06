@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.1.4
+
+### Patch Changes
+
+- 增加配置定义函数
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import { excuteTasks } from './helpers/task';
 import { logger, Logger } from './utils/logger';
-import { formatBuilderConfig, formatAppProjectConfig, formatProjectConfig } from './helpers/config';
+import { formatBuilderConfig, formatAppProjectConfig, formatProjectConfig, defineProjectConfig } from './helpers/config';
 
 import {
   BuildOrderType,
@@ -16,7 +16,7 @@ interface BuilderCoreOptions {
   logger: Logger;
 }
 
-export { excuteTasks, formatBuilderConfig, formatAppProjectConfig, formatProjectConfig };
+export { excuteTasks, formatBuilderConfig, formatAppProjectConfig, formatProjectConfig, defineProjectConfig };
 export { composeMiddlewares } from './helpers/middleware';
 
 export type {

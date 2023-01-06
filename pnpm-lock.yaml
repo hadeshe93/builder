@@ -58,10 +58,12 @@ importers:
 
   packages/builder-core:
     specifiers:
+      '@hadeshe93/wpconfig-core': workspace:^0.1.15
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       ora: ^5.4.1
     dependencies:
+      '@hadeshe93/wpconfig-core': link:../wpconfig-core
       ora: 5.4.1
     devDependencies:
       '@types/jest': 29.1.2
