@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/wpconfig-mw-vue3",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -43,10 +43,10 @@
   "devDependencies": {
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
-    "vue": "^3.2.39"
+    "vue": "^3.2.13"
   },
   "peerDependencies": {
-    "vue": "^3.2.39"
+    "vue": "^3.2.13"
   },
   "dependencies": {
     "@hadeshe93/wpconfig-core": "workspace:^0.1.15",

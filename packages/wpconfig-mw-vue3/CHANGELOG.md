@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.12
+
+### Patch Changes
+
+- 升级插件
+
 ## 0.1.11
 
 ### Patch Changes

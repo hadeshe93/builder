@@ -11,6 +11,7 @@ export default function() {
         // 0. set constants
         const BABEL_PRESET_TYPESCRIPT = '@babel/preset-typescript';
         const BABEL_PRESET_REACT = '@babel/preset-react';
+        const REACT_REFRESH = 'react-refresh/babel';
         const REACT_REFRESH_WEBPACK_PLUGIN = '@pmmmwh/react-refresh-webpack-plugin';
 
         // 1. set the 'allExtensions' option to false when using react
@@ -29,6 +30,11 @@ export default function() {
         } else {
           options.presets.push(RESOLVED_BABEL_PRESET_REACT);
         }
+        const RESOLVED_REACT_REFRESH = requireResolve(REACT_REFRESH);
+        if (chainConfig.get('mode') === 'development') {
+          options.plugins.push(RESOLVED_REACT_REFRESH);
+        }
+
         // 3. add react refresh plugin for webpack
         chainConfig.plugin(REACT_REFRESH_WEBPACK_PLUGIN)
           .use(requireResolve(REACT_REFRESH_WEBPACK_PLUGIN), [{ overlay: false }])
