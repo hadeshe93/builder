@@ -23,7 +23,7 @@ export default {
         sourceType: 'module',
         project: ['./packages/**/tsconfig.json', './tsconfig.json'],
       },
-      plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
+      plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
