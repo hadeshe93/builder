@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/vite-chain",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/builder/packages/vite-chain/#readme",
@@ -46,6 +46,7 @@
     "@types/node": "^18.7.18",
     "@vitejs/plugin-legacy": "^4.0.1",
     "@vitejs/plugin-vue": "^4.0.0",
+    "terser": "^5.4.0",
     "vue": "^3.2.13"
   },
   "dependencies": {

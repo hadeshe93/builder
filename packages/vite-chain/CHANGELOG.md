@@ -1,5 +1,11 @@
 # @hadeshe93/vite-chain
 
+## 0.1.3
+
+### Patch Changes
+
+- 8b238a0: 添加 babel 对 decorator 的支持以修复类型声明
+
 ## 0.1.2
 
 ### Patch Changes
