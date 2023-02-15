@@ -5,6 +5,7 @@ import ChainedSet from '../libs/chained-set';
 import Resolve from '../libs/resolve';
 import Css from '../libs/css';
 import Json from '../libs/json';
+import Plugin from '../libs/plugin';
 import Build from '../libs/build';
 import Preview from '../libs/preview';
 import OptimizeDeps from '../libs/optimize-deps';
@@ -33,6 +34,11 @@ export interface EndableCss<T> extends Css {
 }
 
 export interface EndableJson<T> extends Json {
+  // 重写类型声明，避免类型丢失
+  end: () => T;
+}
+
+export interface EndablePlugin<T> extends Plugin {
   // 重写类型声明，避免类型丢失
   end: () => T;
 }

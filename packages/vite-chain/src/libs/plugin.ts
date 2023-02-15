@@ -4,7 +4,8 @@ import { hasOwnProperty } from '../utils/object';
 
 type Args = any[];
 
-class PluginCore extends ChainedMap {
+@orderable<typeof Plugin>
+class Plugin extends ChainedMap {
   name: string;
   type: string;
   init: (value) => any;
@@ -96,6 +97,5 @@ class PluginCore extends ChainedMap {
   }
 }
 
-const Plugin = orderable<typeof PluginCore>(PluginCore);
-
 export default Plugin;
+

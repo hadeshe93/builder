@@ -112,6 +112,10 @@ function createConfig(options = {}) {
       ],
     ],
     plugins: [
+      [
+        '@babel/plugin-proposal-decorators',
+        { legacy: true }
+      ],
       ...(format !== BUILD_FORMATS.IIFE
         ? [
             [

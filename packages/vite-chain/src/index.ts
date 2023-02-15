@@ -14,6 +14,7 @@ import type {
   EndableResolve,
   EndableCss,
   EndableJson,
+  EndablePlugin,
   EndableServer,
   EndableBuild,
   EndablePreview,
@@ -76,7 +77,7 @@ export default class ViteChain extends ChainedMap {
     this.extend(ViteChain.SHORTHANDS);
   }
 
-  plugin(name): InstanceType<typeof Plugin> {
+  plugin(name): EndablePlugin<ViteChain> {
     return this.plugins.getOrCompute(name, () => new Plugin(this, name));
   }
 
