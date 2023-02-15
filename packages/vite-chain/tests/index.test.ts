@@ -64,11 +64,11 @@ describe('针对 ViteChain 的测试集', () => {
       })
       .end()
       .plugin('vue')
-      .use(vue)
-      .end()
+        .use(vue)
+        .end()
       .plugin('legacy')
-      .use(legacy)
-      .end();
+        .use(legacy)
+        .end();
     expect(transform2Json(config.toConfig())).toEqual(transform2Json(mockedConfigJSON));
   });
 
