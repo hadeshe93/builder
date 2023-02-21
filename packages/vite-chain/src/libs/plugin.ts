@@ -16,11 +16,13 @@ class Plugin extends ChainedMap {
     this.type = type;
     this.extend(['init']);
 
-    this.init((Plugin, args = []) => {
-      if (typeof Plugin === 'function') {
-        return new Plugin(...args);
+    this.init((plugin, args = []) => {
+      // 这部分跟 webpack-chain 不同，webpack 的插件一般走 new PluginName 的形式
+      // 而 vite 的插件是函数执行返回的对象形式
+      if (typeof plugin === 'function') {
+        return plugin(...args);
       }
-      return Plugin;
+      return plugin;
     });
   }
 

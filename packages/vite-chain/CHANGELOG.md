@@ -1,5 +1,11 @@
 # @hadeshe93/vite-chain
 
+## 0.1.4
+
+### Patch Changes
+
+- fix: 修复 vite-chain 中 plugin 的实例化过程
+
 ## 0.1.3
 
 ### Patch Changes
