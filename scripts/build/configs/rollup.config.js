@@ -112,6 +112,8 @@ function createConfig(options = {}) {
       ],
     ],
     plugins: [
+      // 目前暂时不需要了
+      // 'babel-plugin-transform-html-import-to-string',
       [
         '@babel/plugin-proposal-decorators',
         { legacy: true }

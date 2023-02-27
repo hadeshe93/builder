@@ -19,6 +19,14 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@hadeshe93/builder-webpack", "smoke-test"],
       "stopOnEntry": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "[builder-vite] Debug",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@hadeshe93/builder-vite", "smoke-test"],
+      "stopOnEntry": true
     }
   ]
 }

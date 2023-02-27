@@ -1,0 +1,63 @@
+{
+  "name": "@hadeshe93/builder-vite",
+  "version": "0.1.1",
+  "description": "",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/builder/packages/builder-vite/#readme",
+  "license": "ISC",
+  "module": "dist/index.node.esm.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts builder-vite"
+  },
+  "types": "dist/index.d.ts",
+  "buildOptions": [
+    {
+      "target": "node",
+      "formats": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/builder/issues"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.18",
+    "jest": "^29.4.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "@hadeshe93/builder-core": "workspace:^0.1.6",
+    "@hadeshe93/vite-chain": "workspace:^0.1.4",
+    "@hadeshe93/vtconfig-mw-vue3": "workspace:^0.1.1",
+    "cheerio": "1.0.0-rc.12",
+    "fs-extra": "^10.1.0",
+    "postcss": "^8.0.0",
+    "postcss-pxtorem": "^6.0.0",
+    "vite": "^4.1.1"
+  }
+}

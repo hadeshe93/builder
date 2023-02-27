@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./",
+  },
+  "include": ["./src", "./tests", "./smoke-tests"],
+  "ts-node": {
+    "scope": true,
+    "scopeDir": "./",
+    "compilerOptions": {
+      "module": "CommonJS",
+      "noUnusedLocals": false,
+    }
+  }
+}
