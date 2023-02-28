@@ -1,5 +1,4 @@
 import { BuilderConfig, AppProjectConfig, formatBuilderConfig } from '@hadeshe93/builder-core';
-import vtconfigMwVue3 from '@hadeshe93/vtconfig-mw-vue3';
 import BuilderVite from '../src/index';
 
 console.log('process.cwd:', process.cwd());
@@ -14,7 +13,7 @@ const appProjectConfig: AppProjectConfig = {
   projectPath: '/cbs/xcode/webpack5-starter/packages/vite3-vue3',
   pageName: 'demo1',
   middlewares: [
-    [vtconfigMwVue3]
+    ['@hadeshe93/vtconfig-mw-vue3']
   ],
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/builder-vite",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/builder/packages/builder-vite/#readme",
@@ -32,7 +32,8 @@
   },
   "files": [
     "index.js",
-    "dist"
+    "dist",
+    "assets"
   ],
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "url": "https://github.com/hadeshe93/builder/issues"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.7",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
@@ -53,8 +55,8 @@
   "dependencies": {
     "@hadeshe93/builder-core": "workspace:^0.1.6",
     "@hadeshe93/vite-chain": "workspace:^0.1.4",
-    "@hadeshe93/vtconfig-mw-vue3": "workspace:^0.1.1",
     "cheerio": "1.0.0-rc.12",
+    "debug": "^4.3.4",
     "fs-extra": "^10.1.0",
     "postcss": "^8.0.0",
     "postcss-pxtorem": "^6.0.0",
