@@ -35,7 +35,8 @@ export async function doDev(configGetters: (() => InlineConfig)[], order: 'seria
  * @returns {*} 
  */
 export async function doBuild(configGetters: (() => InlineConfig)[], order: 'serial' | 'parallel' = 'serial') {
-  const doSingleBuild = async (config: InlineConfig) => {
+  const doSingleBuild = async (rawConfig: InlineConfig) => {
+    const config = { configFile: false, ...rawConfig } as InlineConfig;
     debug('doSingleBuild config: %O', config);
     return build(config);
   };

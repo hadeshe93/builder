@@ -1,5 +1,11 @@
 # @hadeshe93/builder-vite
 
+## 0.1.3
+
+### Patch Changes
+
+- 完善 builder-vite 的 build 能力
+
 ## 0.1.2
 
 ### Patch Changes
