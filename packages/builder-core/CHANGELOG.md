@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.1
+
+### Patch Changes
+
+- 8fb4a7c: 收敛 wpconfig-core 到 builder-webpack 中并修复首屏测速模块
+
 ## 0.2.0
 
 ### Minor Changes
