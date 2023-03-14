@@ -1,5 +1,12 @@
 # @hadeshe93/vtconfig-mw-vue3
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [68572bc]
+  - @hadeshe93/vite-chain@0.2.0
+
 ## 0.1.2
 
 ### Patch Changes

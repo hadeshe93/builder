@@ -1,5 +1,11 @@
 # @hadeshe93/vite-chain
 
+## 0.2.0
+
+### Minor Changes
+
+- 68572bc: 优化 builderConfig 和 projectConfig
+
 ## 0.1.4
 
 ### Patch Changes

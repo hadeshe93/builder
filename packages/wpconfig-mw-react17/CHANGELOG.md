@@ -1,5 +1,12 @@
 # @hadeshe93/wpconfig-mw-react17
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [68572bc]
+  - @hadeshe93/wpconfig-core@0.2.0
+
 ## 0.1.6
 
 ### Patch Changes

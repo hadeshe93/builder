@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/wpconfig-mw-react17",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -46,7 +46,7 @@
     "@types/node": "^18.7.18"
   },
   "dependencies": {
-    "@hadeshe93/wpconfig-core": "workspace:^0.1.15",
+    "@hadeshe93/wpconfig-core": "workspace:^0.2.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "react-refresh": "^0.14.0",
     "webpack": "^5.74.0",

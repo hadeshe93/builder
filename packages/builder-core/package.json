@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/builder-core",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -54,7 +54,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime-corejs3": "^7.18.3",
     "@hadeshe93/lib-node": "^0.8.0",
-    "@hadeshe93/wpconfig-core": "workspace:^0.1.15",
+    "@hadeshe93/wpconfig-core": "workspace:^0.2.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",

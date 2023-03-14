@@ -1,5 +1,16 @@
 # @hadeshe93/builder-core
 
+## 0.2.0
+
+### Minor Changes
+
+- 68572bc: 优化 builderConfig 和 projectConfig
+
+### Patch Changes
+
+- Updated dependencies [68572bc]
+  - @hadeshe93/wpconfig-core@0.2.0
+
 ## 0.1.6
 
 ### Patch Changes

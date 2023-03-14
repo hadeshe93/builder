@@ -1,5 +1,12 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies [68572bc]
+  - @hadeshe93/wpconfig-core@0.2.0
+
 ## 0.1.12
 
 ### Patch Changes
