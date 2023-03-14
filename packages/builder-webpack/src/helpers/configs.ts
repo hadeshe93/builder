@@ -1,9 +1,12 @@
 import { Configuration } from 'webpack';
+import WebpackChain from 'webpack-chain';
 import { BuilderConfig, composeMiddlewares } from '@hadeshe93/builder-core';
-import { getDevChainConfig, getProdChainConfig, getProdDllChainConfig, ParamsGetWebpackChainConfigs } from '@hadeshe93/wpconfig-core';
 
-import builderConfigAdpoterMiddleware from '../mws/builder-config-adopter';
+import getPageConfigMw from '../mws/page-config-mw';
+import getDllConfigMw from '../mws/dll-config-mw';
+import getCommonConfigMw from '../mws/common-config-mw';
 import { ProjectConfig } from '../typings/index';
+
 /**
  * 获取 webpack 的构建配置列表
  *
@@ -12,52 +15,34 @@ import { ProjectConfig } from '../typings/index';
  * @returns {*}  {Configuration[]}
  */
 export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promise<(() => Promise<Configuration>)[]> {
-  const { mode, builderName, projectPath, pageName, projectConfig } = buildConfig;
+  const { mode, builderName, projectConfig } = buildConfig;
   if (builderName !== 'webpack') return [];
 
   const { build,  middlewares } = projectConfig;
   const defaultMiddlewares = [
-    [builderConfigAdpoterMiddleware, buildConfig],
+    [getCommonConfigMw, buildConfig],
+    [getPageConfigMw, buildConfig],
   ];
 
   const middlewaresList = [];
-  if (mode === 'development') {
-    // 只且只有一项构建任务
-    middlewaresList.push(
-      [
-        [() => getDevChainConfig],
-        ...middlewares,
-        ...defaultMiddlewares,
-      ]
-    );
-  } else if (mode === 'production') {
-    middlewaresList.push(
-      [
-        [() => getProdChainConfig],
-        ...middlewares,
-        ...defaultMiddlewares,
-      ]
-    );
+  // 第一项构建任务
+  middlewaresList.push(
+    [
+      ...defaultMiddlewares,
+      ...middlewares,
+    ]
+  );
+  if (mode === 'production' && build.dllEntryMap) {
     // 如果有配置 dllEntryMap，那需要前置一项任务
-    if (build.dllEntryMap) {
-      middlewaresList.unshift([
-        [() => getProdDllChainConfig],
-      ]);
-    }
+    middlewaresList.unshift([
+      [getDllConfigMw, buildConfig],
+    ]);
   }
 
-  const params: ParamsGetWebpackChainConfigs = {
-    mode,
-    projectPath,
-    pageName,
-    publicPath: build.publicPath,
-    fePort: build.devPort,
-  };
-  if (build.dllEntryMap) params.dllEntryMap = build.dllEntryMap;
   const composedFns = await Promise.all(middlewaresList.map((middlewares) => composeMiddlewares(middlewares)));
   return composedFns.map((composedFn) => {
     return async () => {
-      const c = await composedFn(params);
+      const c = await composedFn(new WebpackChain());
       const config =  c.toConfig();
       return config;
     };

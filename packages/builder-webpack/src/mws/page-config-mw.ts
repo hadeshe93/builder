@@ -10,7 +10,7 @@ import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html
  * @param {BuilderConfig} buildConfig
  * @returns {*} 
  */
- export default function builderConfigAdpoterMiddleware(buildConfig: BuilderConfig) {
+ export default function getPageConfigMw(buildConfig: BuilderConfig) {
   return function(chainConfig: WebpackChain): WebpackChain {
     const { projectConfig } = buildConfig;
     // 这里仅需要根据 page 业务配置来做额外处理，build 目前暂时不用

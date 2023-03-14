@@ -14,7 +14,13 @@ import { debug } from '../utils/debug';
 export async function doDev(configGetters: (() => Promise<Configuration>)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleDev = (config: Configuration) => {
     const compiler = webpack(config);
-    const devServerOptions = { ...config.devServer, open: false };
+    const devServerOptions = {
+      bonjour: true,
+      client: {
+        progress: true,
+      },
+      ...config.devServer
+    };
     const server = new WebpackDevServer(devServerOptions, compiler);
     // start 方法会返回一个 promise
     return server.start();

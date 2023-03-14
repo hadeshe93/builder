@@ -1,6 +1,10 @@
 import { AbstractBuilder, BuilderConfig } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
 import { getWebpackConfigGetters, defineProjectConfig } from './helpers/configs';
+import { getCommonChainConfig } from './wpconfig/common.config';
+import { getDevChainConfig } from './wpconfig/dev.config';
+import { getProdChainConfig } from './wpconfig/prod.config';
+import { getProdDllChainConfig } from './wpconfig/prod.dll.config';
 
 import {
   ProjectMiddleware,
@@ -9,8 +13,7 @@ import {
 } from './typings/index';
 
 export default class WebpackBuilder implements AbstractBuilder {
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * 开始构建
@@ -40,6 +43,10 @@ export default class WebpackBuilder implements AbstractBuilder {
 
 export {
   defineProjectConfig,
+  getCommonChainConfig,
+  getDevChainConfig,
+  getProdChainConfig,
+  getProdDllChainConfig,
 };
 
 export type {

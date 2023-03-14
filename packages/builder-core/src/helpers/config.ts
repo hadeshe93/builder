@@ -51,7 +51,7 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
   }
   // 处理 build 配置
   const build = {
-    fePort: oriBuild.devPort || 3200,
+    devPort: oriBuild.devPort || 3200,
     publicPath: oriBuild.publicPath || '',
     dllEntryMap: oriBuild.dllEntryMap || undefined,
   };

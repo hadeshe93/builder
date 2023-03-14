@@ -155,26 +155,68 @@ importers:
 
   packages/builder-webpack:
     specifiers:
+      '@babel/core': ^7.14.5
+      '@babel/plugin-transform-runtime': ^7.18.2
+      '@babel/preset-env': ^7.14.5
+      '@babel/preset-typescript': ^7.16.7
+      '@babel/runtime-corejs3': ^7.18.3
       '@hadeshe93/builder-core': workspace:^0.2.0
-      '@hadeshe93/wpconfig-core': workspace:^0.2.0
+      '@hadeshe93/lib-node': ^0.8.0
       '@hadeshe93/wpconfig-mw-vue3': workspace:^0.1.13
       '@types/debug': ^4.1.7
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
+      add-asset-html-webpack-plugin: ^5.0.2
+      babel-loader: ^8.2.5
       cheerio: 1.0.0-rc.12
+      clean-webpack-plugin: ^4.0.0
+      core-js: ^3
+      cross-env: ^7.0.3
+      css-loader: ^6.7.1
       debug: ^4.3.4
+      fs-extra: ^10.1.0
       html-webpack-plugin: ^5.5.0
+      less: ^4.1.3
+      less-loader: ^11.0.0
+      mini-css-extract-plugin: ^2.6.1
+      node-sass: ^7.0.3
+      postcss: ^8.4.16
+      postcss-loader: ^7.0.1
+      postcss-preset-env: ^7.7.2
+      sass-loader: ^13.0.2
+      style-loader: ^3.3.1
       ts-node: ^10.9.1
       typescript: ^4.8.3
       webpack: ^5.74.0
       webpack-chain: ^6.5.1
       webpack-dev-server: ^4.11.1
     dependencies:
+      '@babel/core': 7.20.12
+      '@babel/plugin-transform-runtime': 7.19.1_@babel+core@7.20.12
+      '@babel/preset-env': 7.20.2_@babel+core@7.20.12
+      '@babel/preset-typescript': 7.18.6_@babel+core@7.20.12
+      '@babel/runtime-corejs3': 7.19.1
       '@hadeshe93/builder-core': link:../builder-core
-      '@hadeshe93/wpconfig-core': link:../wpconfig-core
+      '@hadeshe93/lib-node': 0.8.0_debug@4.3.4
+      add-asset-html-webpack-plugin: 5.0.2_vjsxgketla6kqcty7l6z2i2ilm
+      babel-loader: 8.3.0_la66t7xldg4uecmyawueag5wkm
       cheerio: 1.0.0-rc.12
+      clean-webpack-plugin: 4.0.0_webpack@5.75.0
+      core-js: 3.28.0
+      cross-env: 7.0.3
+      css-loader: 6.7.3_webpack@5.75.0
       debug: 4.3.4
+      fs-extra: 10.1.0
       html-webpack-plugin: 5.5.0_webpack@5.75.0
+      less: 4.1.3
+      less-loader: 11.1.0_less@4.1.3+webpack@5.75.0
+      mini-css-extract-plugin: 2.7.2_webpack@5.75.0
+      node-sass: 7.0.3
+      postcss: 8.4.21
+      postcss-loader: 7.0.2_6jdsrmfenkuhhw3gx4zvjlznce
+      postcss-preset-env: 7.8.3_postcss@8.4.21
+      sass-loader: 13.2.0_m747edfdbufymktlnircx3mhmy
+      style-loader: 3.3.1_webpack@5.75.0
       webpack: 5.75.0
       webpack-chain: 6.5.1
       webpack-dev-server: 4.11.1_debug@4.3.4+webpack@5.75.0
@@ -3526,6 +3568,19 @@ packages:
       - debug
     dev: false
 
+  /@hadeshe93/lib-node/0.8.0_debug@4.3.4:
+    resolution: {integrity: sha512-AZO7gHSTMw5xB8Q0G5v6NepXpCIIPILjd6ZXILk1R9uG9CcadO6E9Vh10UUHf2f+RQo2SKaAxFQMxiXDTqIukQ==}
+    dependencies:
+      '@hadeshe93/lib-common': 0.9.0
+      axios: 0.21.4_debug@4.3.4
+      download-git-repo: 3.0.2
+      find-node-modules: 2.1.3
+      fs-extra: 10.1.0
+      ora: 5.4.1
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
     engines: {node: '>=10.10.0'}
@@ -5020,6 +5075,14 @@ packages:
       - debug
     dev: false
 
+  /axios/0.21.4_debug@4.3.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.15.2_debug@4.3.4
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /babel-jest/29.4.3_@babel+core@7.20.12:
     resolution: {integrity: sha512-o45Wyn32svZE+LnMVWv/Z4x0SwtLbh4FyGcYtR20kIWd+rdrDZ9Fzq8Ml3MYLD+mZvEdzCjZsCnYZ2jpJyQ+Nw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5045,6 +5108,21 @@ packages:
       webpack: '>=2'
     dependencies:
       '@babel/core': 7.19.1
+      find-cache-dir: 3.3.2
+      loader-utils: 2.0.4
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
+      webpack: 5.75.0
+    dev: false
+
+  /babel-loader/8.3.0_la66t7xldg4uecmyawueag5wkm:
+    resolution: {integrity: sha512-H8SvsMF+m9t15HNLMipppzkC+Y2Yq+v3SonZyU70RBL/h1gxPkH08Ot8pEE9Z4Kd+czyWJClmFS8qzIP9OZ04Q==}
+    engines: {node: '>= 8.9'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      webpack: '>=2'
+    dependencies:
+      '@babel/core': 7.20.12
       find-cache-dir: 3.3.2
       loader-utils: 2.0.4
       make-dir: 3.1.0

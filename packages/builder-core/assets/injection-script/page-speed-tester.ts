@@ -27,7 +27,9 @@ interface IFirstScreenInfo {
 let retryTimes = 1;
 // 等待多少 ms 之后开始计算首屏性能数据
 const TIMEOUT = 3000;
-const requestIdleCallback = window.requestIdleCallback ? window.requestIdleCallback : setTimeout;
+const requestIdleCallback = window.requestIdleCallback
+  ? window.requestIdleCallback
+  : (callback: Function, options?: IdleRequestOptions) => setTimeout(callback, options && options.timeout || 0);
 
 /**
  * 向数据容器注入测速数据
@@ -40,11 +42,13 @@ export function injectPageSpeed(dataConatianer: Record<string, any>): Promise<IF
   const material = collectFirstScreenTimingMaterial();
   let p: Promise<IFirstScreenInfo | undefined>;
   if (!material) {
-    p = new Promise(resolve => resolve(undefined));
+    p = new Promise((resolve) => resolve(undefined));
   } else {
-    p = new Promise((resolve) => setTimeout(() => {
-      resolve(calculateFirstScreenInfo(material));
-    }, TIMEOUT));
+    p = new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(calculateFirstScreenInfo(material));
+      }, TIMEOUT)
+    );
   }
   dataConatianer['firstScreenInfo'] = p;
   return p;
@@ -96,14 +100,14 @@ function calculateFirstScreenInfo(materialNS: IAegisPerfMaterial): Promise<IFirs
         observeDom && observeDom.disconnect();
         resolve(firstScreenInfo);
       }
-    }, 0);
+    }, { timeout: 0 });
   });
 }
 
 /**
  * 收集首屏速度的材料
  *
- * @returns {*} 
+ * @returns {*}
  */
 function collectFirstScreenTimingMaterial() {
   if (!MutationObserver) return;
@@ -158,7 +162,7 @@ function collectFirstScreenTimingMaterial() {
  *
  * @param {*} target
  * @param {*} arr
- * @returns {*} 
+ * @returns {*}
  */
 function isEleInArray(target, arr) {
   if (!target || target === document.documentElement) {
@@ -191,7 +195,7 @@ function walkAndCount(target) {
  * 判断是否在首屏范围内
  *
  * @param {Element} target
- * @returns {*} 
+ * @returns {*}
  */
 function isInFirstScreen(target: Element) {
   if (!target || typeof target.getBoundingClientRect !== 'function') return false;

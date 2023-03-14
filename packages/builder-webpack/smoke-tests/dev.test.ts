@@ -7,10 +7,13 @@ const projectConfig: ProjectConfig = {
     description: '',
     useInjection: {
       flexible: true,
+      debugger: true,
+      pageSpeedTester: true,
     },
   },
   build: {
     publicPath: '/demo1/',
+    devPort: 3004,
   },
   middlewares: [
     ['@hadeshe93/wpconfig-mw-vue3']
