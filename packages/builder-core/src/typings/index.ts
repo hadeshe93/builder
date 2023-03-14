@@ -2,13 +2,24 @@ export type SupportedBuilderNames = 'webpack' | 'vite';
 export type SupportedBuilderMode = 'development' | 'production';
 export type SupportedBuilderInsMap = Map<SupportedBuilderNames, any>;
 
+// 项目配置
 export interface ProjectConfig {
   // 页面能力相关的配置
-  page: {
+  page?: {
+    // 页面标题
     title?: string;
+    // 页面描述
     description?: string;
-    useFlexible?: boolean;
-    useDebugger?: boolean;
+    // 页面注入：
+    useInjection?: {
+      // 是否使用 debugger，正式环境中应关闭
+      debugger?: boolean;
+      // 是否使用响应式像素
+      flexible?: boolean;
+      // 是否使用默认的首屏测速脚本
+      pageSpeedTester?: boolean;
+    };
+    // 使用响应式像素时配置 pxtorem 插件
     pxtoremOptions?: {
       rootValue?: number;
       unitPrecision?: number;
@@ -21,27 +32,32 @@ export interface ProjectConfig {
     } | undefined | false;
   };
   // 构建相关的配置
-  build: {
-    fePort?: number;
+  build?: {
+    // 开发服务器端口
+    devPort?: number;
+    // 页面引用的公共静态资源路径
     publicPath?: string;
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
   };
   // 处理配置的中间件，它的功能更类似与中间件，加工处理完继续返回给下一个处理
-  middlewares: ProjectMiddlewares;
+  middlewares?: ProjectMiddlewares;
 }
 
-export type ProjectMiddleware = [string, any?] | [(...args: any[]) => any, any?];
+export type AnyFunction = (...args: any[]) => any;
+export type ProjectMiddleware = [string, any?] | [AnyFunction, any?];
 export type ProjectMiddlewares = ProjectMiddleware[];
 
-export interface AppProjectConfig extends ProjectConfig {
-  projectPath: string;
-  pageName: string;
-}
-
 export interface BuilderConfig {
+  // 构建模式
   mode: SupportedBuilderMode;
+  // 构建器名称
   builderName: SupportedBuilderNames;
-  appProjectConfig: AppProjectConfig;
+  // 项目路径
+  projectPath: string;
+  // 目标页面名称
+  pageName: string;
+  // 项目配置
+  projectConfig: ProjectConfig;
 }
 
 export type BuildOrderType = 'serial' | 'parallel';

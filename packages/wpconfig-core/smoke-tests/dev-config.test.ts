@@ -1,7 +1,7 @@
 import { getDevChainConfig } from '../src/index';
 
 const chainConfig = getDevChainConfig({
-  projectPath: '/cbs/xcode/webpack5-starter/vue3-starter',
+  projectPath: '/cbs/xcode/web-project-starter/vue3-starter',
   pageName: 'demo1',
 });
 

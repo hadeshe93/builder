@@ -1,6 +1,6 @@
 import path from 'path';
 import { getRequireResolve, getNodeModulePaths } from '@hadeshe93/wpconfig-core';
-import { ProjectConfig, AppProjectConfig, BuilderConfig } from '../typings/index';
+import { ProjectConfig, BuilderConfig } from '../typings/index';
 
 /**
  * 格式化构建器相关的配置
@@ -10,31 +10,13 @@ import { ProjectConfig, AppProjectConfig, BuilderConfig } from '../typings/index
  * @returns {*} 
  */
 export function formatBuilderConfig(builderConfig: BuilderConfig) {
-  const { mode, builderName, appProjectConfig } = builderConfig;
+  const { mode, builderName, projectPath, pageName, projectConfig } = builderConfig;
   return {
     mode: mode || 'development',
     builderName: builderName || 'webpack',
-    appProjectConfig: formatAppProjectConfig(appProjectConfig),
-  };
-}
-
-/**
- * 格式化应用下提供的项目配置
- *
- * @export
- * @param {AppProjectConfig} appProjectConfig
- * @returns {*}  {AppProjectConfig}
- */
-export function formatAppProjectConfig(appProjectConfig: AppProjectConfig): AppProjectConfig {
-  const { page, build, middlewares } = formatProjectConfig(appProjectConfig);
-  const projectPath = appProjectConfig.projectPath || '';
-  const pageName = appProjectConfig.pageName || '';
-  return {
-    page,
-    build,
-    projectPath,
-    pageName,
-    middlewares,
+    projectPath: projectPath || '',
+    pageName: pageName || '',
+    projectConfig: formatProjectConfig(projectConfig),
   };
 }
 
@@ -42,19 +24,24 @@ export function formatAppProjectConfig(appProjectConfig: AppProjectConfig): AppP
  * 格式化项目核心构建配置
  *
  * @export
- * @param {AppProjectConfig} projectConfig
+ * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
 export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
   const { page: oriPage, build: oriBuild, middlewares: oriMiddlewares } = projectConfig || {};
+  const { useInjection: oriUseInjection, pxtoremOptions: oriPxtoremOptions } = oriPage;
+  const useInjection = oriUseInjection ? {
+    debugger: Boolean(oriUseInjection?.debugger),
+    flexible: Boolean(oriUseInjection?.flexible),
+    pageSpeedTester: Boolean(oriUseInjection?.pageSpeedTester),
+  } : undefined;
   // 处理 page 配置
   const page = {
     title: oriPage.title || '页面标题',
     description: oriPage.description || '页面描述',
-    useFlexible: oriPage.useFlexible || false,
-    useDebugger: oriPage.useDebugger || false,
+    useInjection,
   };
-  if (page.useFlexible) {
+  if (useInjection?.flexible && !oriPxtoremOptions) {
     page['pxtoremOptions'] = {
       rootValue: 75,
       propList: ['*'],
@@ -64,7 +51,7 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
   }
   // 处理 build 配置
   const build = {
-    fePort: oriBuild.fePort || 3200,
+    fePort: oriBuild.devPort || 3200,
     publicPath: oriBuild.publicPath || '',
     dllEntryMap: oriBuild.dllEntryMap || undefined,
   };

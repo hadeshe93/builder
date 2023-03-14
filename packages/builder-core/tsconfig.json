@@ -6,6 +6,7 @@
     "rootDir": "./",
   },
   "include": ["./src", "./tests", "./smoke-tests"],
+  "exclude": ["./assets"],
   "ts-node": {
     "scope": true,
     "scopeDir": "./",

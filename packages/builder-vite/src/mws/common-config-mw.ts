@@ -7,12 +7,19 @@ const getDefaultPublicPath = (pageName: string) => path.join(path.sep, pageName,
 const getDefaultRoot = (projectPath: string, pageName: string) => path.resolve(projectPath, 'src', 'pages', pageName);
 const getDefaultCacheDir = (root: string) => path.resolve(root, '.vite');
 
-export default function getCommonChainConfigMw(options: GetConfigGettersOptions) {
+/**
+ * 获取 vite 项目构建的基础性配置中间件
+ *
+ * @export
+ * @param {GetConfigGettersOptions} options
+ * @returns {*} 
+ */
+export default function getCommonConfigMw(options: GetConfigGettersOptions) {
   const { builderConfig } = options;
   return function (chainConfig: ViteChain): ViteChain {
-    const { mode, appProjectConfig } = builderConfig;
-    const { pageName, projectPath, build } = appProjectConfig;
-    const { fePort = getDefaultFefort(), publicPath: rawBase = getDefaultPublicPath(pageName) } = build;
+    const { mode, pageName, projectPath, projectConfig } = builderConfig;
+    const {  build } = projectConfig;
+    const { devPort = getDefaultFefort(), publicPath: rawBase = getDefaultPublicPath(pageName) } = build;
     const base = rawBase ? rawBase : getDefaultPublicPath(pageName);
     const root = getDefaultRoot(projectPath, pageName);
     const cacheDir = getDefaultCacheDir(root);
@@ -21,14 +28,16 @@ export default function getCommonChainConfigMw(options: GetConfigGettersOptions)
       .root(root)
       .base(base)
       .cacheDir(cacheDir)
-      .server
-        .port(fePort)
-        .end()
       ;
     if (mode === 'production') {
       chainConfig.build.sourcemap(true);
     } else {
-      chainConfig.build.sourcemap('inline');
+      chainConfig
+        .server
+          .port(devPort)
+          .end()
+        .build
+          .sourcemap('inline');
     }
     
     return chainConfig;

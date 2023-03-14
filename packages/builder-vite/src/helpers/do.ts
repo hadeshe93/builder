@@ -10,7 +10,7 @@ import { debug } from '../utils/debug';
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doDev(configGetters: (() => InlineConfig)[], order: 'serial' | 'parallel' = 'serial') {
+export async function doDev(configGetters: (() => Promise<InlineConfig>)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleDev = async (rawConfig: InlineConfig) => {
     const config = { configFile: false, ...rawConfig } as InlineConfig;
     debug('doSingleDev config: %O', config);
@@ -21,7 +21,7 @@ export async function doDev(configGetters: (() => InlineConfig)[], order: 'seria
     return server;
   };
   return await excuteTasks(
-    configGetters.map((configGetter) => () => doSingleDev(configGetter())),
+    configGetters.map((configGetter) => async () => doSingleDev(await configGetter())),
     order,
   );
 }
@@ -34,14 +34,14 @@ export async function doDev(configGetters: (() => InlineConfig)[], order: 'seria
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doBuild(configGetters: (() => InlineConfig)[], order: 'serial' | 'parallel' = 'serial') {
+export async function doBuild(configGetters: (() => Promise<InlineConfig>)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleBuild = async (rawConfig: InlineConfig) => {
     const config = { configFile: false, ...rawConfig } as InlineConfig;
     debug('doSingleBuild config: %O', config);
     return build(config);
   };
   return await excuteTasks(
-    configGetters.map((configGetter) => () => doSingleBuild(configGetter())),
+    configGetters.map((configGetter) => async () => doSingleBuild(await configGetter())),
     order,
   );
 }

@@ -1,7 +1,7 @@
 import WebpackChain from 'webpack-chain';
 import { BuilderConfig } from '@hadeshe93/builder-core';
 
-import HtmlInjectionPlugin from '../plugins/html-injection-plugin/index';
+import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html-injection-plugin/index';
 
 /**
  * 用来解析并适配构建配置的插件中间件
@@ -12,23 +12,24 @@ import HtmlInjectionPlugin from '../plugins/html-injection-plugin/index';
  */
  export default function builderConfigAdpoterMiddleware(buildConfig: BuilderConfig) {
   return function(chainConfig: WebpackChain): WebpackChain {
-    const { appProjectConfig } = buildConfig;
+    const { projectConfig } = buildConfig;
     // 这里仅需要根据 page 业务配置来做额外处理，build 目前暂时不用
-    const { page } = appProjectConfig;
-    const { title, description, useFlexible, useDebugger, pxtoremOptions } = page;
-
+    const { page } = projectConfig;
+    const { title, description, useInjection, pxtoremOptions } = page;
+    const { flexible } = useInjection;
+    const htmlInjectionPluginOptions: HtmlInjectionPluginOptions = {
+      title,
+      description,
+      useInjection,
+      useTerser: buildConfig.mode === 'production',
+    };
     // html 操作
     chainConfig
       .plugin('HtmlInjectionPlugin')
-      .use(HtmlInjectionPlugin, [{
-        title,
-        description,
-        useFlexible,
-        useDebugger,
-      }]);
+      .use(HtmlInjectionPlugin, [htmlInjectionPluginOptions]);
 
     // postcss-loader 操作
-    if (useFlexible) {
+    if (flexible) {
       chainConfig.module
         .rule('css')
         .use('postcss-loader')

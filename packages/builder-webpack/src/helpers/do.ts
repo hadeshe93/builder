@@ -11,7 +11,7 @@ import { debug } from '../utils/debug';
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doDev(configGetters: (() => Configuration)[], order: 'serial' | 'parallel' = 'serial') {
+export async function doDev(configGetters: (() => Promise<Configuration>)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleDev = (config: Configuration) => {
     const compiler = webpack(config);
     const devServerOptions = { ...config.devServer, open: false };
@@ -20,7 +20,7 @@ export async function doDev(configGetters: (() => Configuration)[], order: 'seri
     return server.start();
   };
   return await excuteTasks(
-    configGetters.map((configGetter) => () => doSingleDev(configGetter())),
+    configGetters.map((configGetter) => async () => doSingleDev(await configGetter())),
     order,
   );
 }
@@ -33,7 +33,7 @@ export async function doDev(configGetters: (() => Configuration)[], order: 'seri
  * @param {('serial' | 'parallel')} [order='serial']
  * @returns {*} 
  */
-export async function doBuild(configGetters: (() => Configuration)[], order: 'serial' | 'parallel' = 'serial') {
+export async function doBuild(configGetters: (() => Promise<Configuration>)[], order: 'serial' | 'parallel' = 'serial') {
   const doSingleBuild = (config: Configuration) =>
     new Promise((resolve, reject) => {
       debug('%O', config);
@@ -62,8 +62,8 @@ export async function doBuild(configGetters: (() => Configuration)[], order: 'se
     });
 
   return await excuteTasks(
-    configGetters.map((configGetter) => () => {
-      const configs = configGetter();
+    configGetters.map((configGetter) => async () => {
+      const configs = await configGetter();
       return doSingleBuild(configs);
     }),
     order,

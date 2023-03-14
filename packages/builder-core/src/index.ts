@@ -1,12 +1,13 @@
+import path from 'path';
 import { excuteTasks } from './helpers/task';
+import { getHtmlInjectorClass } from './helpers/html-injector';
 import { logger, Logger } from './utils/logger';
-import { formatBuilderConfig, formatAppProjectConfig, formatProjectConfig, defineProjectConfig } from './helpers/config';
+import { formatBuilderConfig, formatProjectConfig, defineProjectConfig } from './helpers/config';
 
 import {
   BuildOrderType,
   BuilderConfig,
   ProjectConfig,
-  AppProjectConfig,
   ProjectMiddleware,
   ProjectMiddlewares,
   SupportedBuilderInsMap,
@@ -18,19 +19,31 @@ interface BuilderCoreOptions {
   logger: Logger;
 }
 
-export { excuteTasks, formatBuilderConfig, formatAppProjectConfig, formatProjectConfig, defineProjectConfig };
+export { excuteTasks, formatBuilderConfig, formatProjectConfig, defineProjectConfig };
 export { composeMiddlewares } from './helpers/middleware';
 
 export type {
   BuilderConfig,
   ProjectConfig,
-  AppProjectConfig,
   ProjectMiddleware,
   ProjectMiddlewares,
   SupportedBuilderNames,
   SupportedBuilderMode,
   BuilderCoreOptions,
 };
+
+// 资源文件夹路径
+const assetsPath = path.resolve(__dirname, '../assets');
+
+export const HtmlInjector = getHtmlInjectorClass({
+  partialScriptEntries: [
+    path.resolve(assetsPath, 'injection-script/index.ts'),
+  ],
+});
+
+export abstract class AbstractBuilder {
+  public abstract start(builderConfig: BuilderConfig): Promise<any>;
+}
 
 /**
  * 构建器基类

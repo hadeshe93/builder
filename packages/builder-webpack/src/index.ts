@@ -1,4 +1,4 @@
-import type { BuilderConfig } from '@hadeshe93/builder-core';
+import { AbstractBuilder, BuilderConfig } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
 import { getWebpackConfigGetters, defineProjectConfig } from './helpers/configs';
 
@@ -8,7 +8,7 @@ import {
   ProjectConfig,
 } from './typings/index';
 
-export default class BuilderWebpack {
+export default class WebpackBuilder implements AbstractBuilder {
   constructor() {
   }
 
@@ -22,7 +22,7 @@ export default class BuilderWebpack {
     const { mode, builderName } = buildConfig;
     if (builderName !== 'webpack') return;
 
-    const webpackConfigGetters = getWebpackConfigGetters(buildConfig);
+    const webpackConfigGetters = await getWebpackConfigGetters(buildConfig);
     const taskDescriptorMap = {
       development: async () => {
         await doDev(webpackConfigGetters, 'serial');

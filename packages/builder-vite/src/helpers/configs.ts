@@ -1,20 +1,26 @@
 import ViteChain from '@hadeshe93/vite-chain';
 import { composeMiddlewares } from '@hadeshe93/builder-core';
-import commonConfigAdpoterMiddleware from '../mws/common-config-mw';
-import builderConfigAdpoterMiddleware from '../mws/builder-config-mw';
+import getCommonConfigMw from '../mws/common-config-mw';
+import getPageConfigMw from '../mws/page-config-mw';
 import { ProjectConfig, GetConfigGettersOptions } from '../typings/index';
 
-
-
-export function getConfigGetters(options: GetConfigGettersOptions) {
+/**
+ * 获取最终的构建配置
+ * - 由于每项构建可能包含不止一项子任务，所以以数组的方式进行返回
+ *
+ * @export
+ * @param {GetConfigGettersOptions} options
+ * @returns {*} 
+ */
+export async function getConfigGetters(options: GetConfigGettersOptions) {
   const { builderConfig } = options;
-  const { builderName, appProjectConfig } = builderConfig;
+  const { builderName, projectConfig } = builderConfig;
   if (builderName !== 'vite') return [];
 
-  const { middlewares } = appProjectConfig;
+  const { middlewares } = projectConfig;
   const defaultMiddlewares = [
-    [commonConfigAdpoterMiddleware, options],
-    [builderConfigAdpoterMiddleware, options],
+    [getCommonConfigMw, options],
+    [getPageConfigMw, options],
   ];
 
   const middlewaresList = [];
@@ -22,14 +28,16 @@ export function getConfigGetters(options: GetConfigGettersOptions) {
     ...defaultMiddlewares,
     ...middlewares,
   ])
-  const composedFns = middlewaresList.map((middlewares) => composeMiddlewares(middlewares));
-  return composedFns.map((composedFn) => {
-    return () => {
-      const c = composedFn(new ViteChain());
-      const config =  c.toConfig();
-      return config;
-    };
-  });
+  const composedFns = await Promise.all(middlewaresList.map((middlewares) => composeMiddlewares(middlewares)));
+  return await Promise.all(
+    composedFns.map((composedFn) => {
+      return async () => {
+        const c = await composedFn(new ViteChain());
+        const config = c.toConfig();
+        return config;
+      };
+    })
+  );
 }
 
 /**

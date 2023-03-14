@@ -1,7 +1,7 @@
 import path from 'path';
 import { debug } from './utils/debug';
 import { doDev, doBuild } from './helpers/do';
-import type { BuilderConfig } from '@hadeshe93/builder-core';
+import type { BuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
 import { getConfigGetters, defineProjectConfig } from './helpers/configs';
 import {
   ProjectMiddleware,
@@ -9,7 +9,7 @@ import {
   ProjectConfig,
 } from './typings/index';
 
-export default class ViteBuilder {
+export default class ViteBuilder implements AbstractBuilder {
   constructor() {}
 
   // 资源文件夹路径
@@ -21,7 +21,7 @@ export default class ViteBuilder {
       debug('builderName is not "vite", quit normally.');
       return;
     }
-    const configGetters = getConfigGetters({
+    const configGetters = await getConfigGetters({
       builderConfig,
       envConfig: {
         assetsPath: this.assetsPath,

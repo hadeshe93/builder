@@ -59,7 +59,6 @@ export default class Resolve extends ChainedMap {
         value = member.values();
       } else if (member instanceof ChainedMap) {
         value = member.entries();
-        console.log('value', key, value);
       } else {
         value = this.get(key);
       }

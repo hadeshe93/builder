@@ -1,6 +1,6 @@
 import path from 'path';
-import { compose } from '../utils/fp';
-import { ProjectMiddlewares } from '../typings/index';
+import { asyncCompose } from '../utils/fp';
+import { ProjectMiddlewares, AnyFunction } from '../typings/index';
 
 function actualRequire(moduleName) {
   const middlewareModule = require(moduleName);
@@ -30,14 +30,16 @@ export function loadMiddleware(m: string | Function) {
  * @param {ProjectMiddlewares} middlewares
  * @returns {*} 
  */
-export function composeMiddlewares(middlewares: ProjectMiddlewares) {
-  const mList = middlewares.reduce((sum, m) => {
-    const [name, ...options] = m;
-    const middleware = loadMiddleware(name)(...options);
-    if (middleware) {
-      sum.push(middleware);
-    }
-    return sum;
-  }, []);
-  return compose(mList);
+export async function composeMiddlewares(middlewares: ProjectMiddlewares) {
+  const mList = await Promise.all(
+    middlewares.reduce((sum, m) => {
+      const [name, ...options] = m;
+      const middleware = loadMiddleware(name)(...options);
+      if (middleware) {
+        sum.push(middleware);
+      }
+      return sum;
+    }, [] as AnyFunction[])
+  );
+  return asyncCompose(mList);
 }

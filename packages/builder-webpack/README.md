@@ -26,15 +26,9 @@ const excute = function (webpackBuilder) {
   return webpackBuilder.start({
     mode: 'development',
     builderName: 'webpack',
-    appProjectConfig: {
-      projectPath: '/path/to/xx',
-      pageName: 'demo1',
-      // optional
-      middlewares: [
-        // middleware and params
-        // actually, @hadeshe93/wpconfig-mw-vue3 doesn`t need params. just for example
-        ['@hadeshe93/wpconfig-mw-vue3', {}]
-      ],
+    projectPath: '/path/to/xx',
+    pageName: 'demo1',
+    projectConfig: {
       page: {
         title: 'Show',
         description: '',
@@ -45,6 +39,11 @@ const excute = function (webpackBuilder) {
         fePort: 3000,
         publicPath: '/',
       },
+      middlewares: [
+        // middleware and params
+        // actually, @hadeshe93/wpconfig-mw-vue3 doesn`t need params. just for example
+        ['@hadeshe93/wpconfig-mw-vue3', {}]
+      ],
     }
   })
 };
@@ -73,15 +72,9 @@ builder.registerBuilder('webpack', webpackBuilder);
 const excute = builder.createExcutor({
   mode: 'development',
   builderName: 'webpack',
-  appProjectConfig: {
-    projectPath: '/path/to/xx',
-    pageName: 'demo1',
-    // optional
-    middlewares: [
-      // middleware and params
-      // actually, @hadeshe93/wpconfig-mw-vue3 doesn`t need params. just for example
-      ['@hadeshe93/wpconfig-mw-vue3', {}]
-    ],
+  projectPath: '/path/to/xx',
+  pageName: 'demo1',
+  projectConfig: {
     page: {
       title: 'Show',
       description: '',
@@ -92,6 +85,11 @@ const excute = builder.createExcutor({
       fePort: 3000,
       publicPath: '/',
     },
+    middlewares: [
+      // middleware and params
+      // actually, @hadeshe93/wpconfig-mw-vue3 doesn`t need params. just for example
+      ['@hadeshe93/wpconfig-mw-vue3', {}]
+    ],
   }
 });
 

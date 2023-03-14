@@ -11,11 +11,11 @@ import { ProjectConfig } from '../typings/index';
  * @param {BuilderConfig} buildConfig
  * @returns {*}  {Configuration[]}
  */
-export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Configuration)[] {
-  const { mode, builderName, appProjectConfig } = buildConfig;
+export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promise<(() => Promise<Configuration>)[]> {
+  const { mode, builderName, projectPath, pageName, projectConfig } = buildConfig;
   if (builderName !== 'webpack') return [];
 
-  const { build, projectPath, pageName, middlewares } = appProjectConfig;
+  const { build,  middlewares } = projectConfig;
   const defaultMiddlewares = [
     [builderConfigAdpoterMiddleware, buildConfig],
   ];
@@ -51,14 +51,13 @@ export function getWebpackConfigGetters(buildConfig: BuilderConfig): (() => Conf
     projectPath,
     pageName,
     publicPath: build.publicPath,
-    fePort: build.fePort,
+    fePort: build.devPort,
   };
   if (build.dllEntryMap) params.dllEntryMap = build.dllEntryMap;
-  const composedFns = middlewaresList.map((middlewares) => composeMiddlewares(middlewares));
-  // return composedFns.map((composedFn) => () => composedFn(params).toConfig());
+  const composedFns = await Promise.all(middlewaresList.map((middlewares) => composeMiddlewares(middlewares)));
   return composedFns.map((composedFn) => {
-    return () => {
-      const c = composedFn(params);
+    return async () => {
+      const c = await composedFn(params);
       const config =  c.toConfig();
       return config;
     };

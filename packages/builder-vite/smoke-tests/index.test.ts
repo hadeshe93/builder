@@ -1,33 +1,20 @@
 import path from 'path';
-import { BuilderConfig, AppProjectConfig, formatBuilderConfig } from '@hadeshe93/builder-core';
+import { BuilderConfig, ProjectConfig, formatBuilderConfig } from '@hadeshe93/builder-core';
 import BuilderVite from '../src/index';
 
-const projectPath = '/cbs/xcode/webpack5-starter/packages/vite3-vue3';
+const projectPath = '/cbs/xcode/web-project-starter/packages/vite3-vue3';
 const pageName = 'demo1';
 const projectPagePath = path.resolve(projectPath, 'src', 'pages', pageName);
-const projectConfig = require(path.resolve(projectPagePath, 'project.config.js'));
-const appProjectConfig: AppProjectConfig = {
-  projectPath,
-  pageName: 'demo1',
-  ...projectConfig,
-  // page: {
-  //   title: '测试页面12',
-  //   description: '测试表述',
-  //   useFlexible: true,
-  // },
-  // build: {
-  // },
-  // middlewares: [
-  //   ['@hadeshe93/vtconfig-mw-vue3']
-  // ],
-};
+const projectConfig: ProjectConfig = require(path.resolve(projectPagePath, 'project.config.js'));
 process.chdir(projectPath);
 console.log('process.cwd():', process.cwd());
 
 const builderConfig: BuilderConfig = formatBuilderConfig({
-  mode: 'production',
+  mode: 'development',
   builderName: 'vite',
-  appProjectConfig,
+  projectPath,
+  pageName: 'demo1',
+  projectConfig,
 });
 
 const builder = new BuilderVite();

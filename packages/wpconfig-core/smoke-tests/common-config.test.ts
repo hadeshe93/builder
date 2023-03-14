@@ -1,7 +1,7 @@
 import { getCommonChainConfig } from '../src/index';
 
 const chainConfig = getCommonChainConfig({
-  projectPath: '/cbs/xcode/webpack5-starter/vue3-starter',
+  projectPath: '/cbs/xcode/web-project-starter/vue3-starter',
   pageName: 'demo1',
 });
 
