@@ -76,7 +76,6 @@ export function createRollupConfig(options: CreateRollupConfigOptions) {
           ]
         : []),
     ],
-    exclude: [/node_modules/],
   });
   return {
     input,
