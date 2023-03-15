@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.4
+
+### Patch Changes
+
+- b4dadca: 优化 builder
+
 ## 0.2.3
 
 ### Patch Changes

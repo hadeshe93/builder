@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.3
+
+### Patch Changes
+
+- b4dadca: 优化 builder
+- Updated dependencies [b4dadca]
+  - @hadeshe93/builder-core@0.2.4
+
 ## 0.2.2
 
 ### Patch Changes
