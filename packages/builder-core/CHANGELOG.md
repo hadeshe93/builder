@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.2
+
+### Patch Changes
+
+- e938ae8: builder-core 补充发布 assets 文件夹到仓库
+
 ## 0.2.1
 
 ### Patch Changes

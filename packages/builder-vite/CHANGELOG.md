@@ -1,5 +1,13 @@
 # @hadeshe93/builder-vite
 
+## 0.2.1
+
+### Patch Changes
+
+- e938ae8: builder-core 补充发布 assets 文件夹到仓库
+- Updated dependencies [e938ae8]
+  - @hadeshe93/builder-core@0.2.2
+
 ## 0.2.0
 
 ### Minor Changes
