@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.3
+
+### Patch Changes
+
+- 81fa5c3: 修复 builder-core 中 rollup 无法正确识别 ts 文件的问题
+
 ## 0.2.2
 
 ### Patch Changes
