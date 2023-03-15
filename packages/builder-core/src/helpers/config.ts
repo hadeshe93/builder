@@ -95,3 +95,14 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
 export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
   return projectConfig;
 }
+
+/**
+ * 定义构建器配置
+ *
+ * @export
+ * @param {BuilderConfig} builderConfig
+ * @returns {*}  {BuilderConfig}
+ */
+export function defineBuilderConfig(builderConfig: BuilderConfig): BuilderConfig {
+  return builderConfig;
+}

@@ -25,7 +25,8 @@ export default function getPageConfigMw(options: GetConfigGettersOptions) {
       title,
       description,
       useInjection,
-      useTerser: mode === 'production',
+      minify: mode === 'production',
+      mode,
       indexHtmlEntryPath: path.resolve(root, 'index.html'),
     };
     chainConfig.plugin('vitePluginHtml').use(vitePluginHtml, [vitePluginHtmlOptions]);

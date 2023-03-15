@@ -61,3 +61,8 @@ export interface BuilderConfig {
 }
 
 export type BuildOrderType = 'serial' | 'parallel';
+
+export interface BundledStringResult {
+  string: string;
+  originalResult: any;
+}

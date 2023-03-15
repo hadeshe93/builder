@@ -1,5 +1,5 @@
 import path from 'path';
-import { RollupOptions, OutputOptions } from 'rollup';
+import { rollup, RollupOptions, OutputOptions } from 'rollup';
 import fs from 'fs-extra';
 // import ts from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
@@ -9,22 +9,24 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import babel from '@rollup/plugin-babel';
 import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/lib-node';
+import { BundledStringResult } from '../typings/index';
 
-interface CreateRollupConfigOptions {
+export interface CreateRollupConfigOptions {
   // rollup 配置
   input: string;
-  format: OutputOptions['format'];
-  sourcemap: OutputOptions['sourcemap'];
+  format?: OutputOptions['format'];
+  sourcemap?: OutputOptions['sourcemap'];
   external?: RollupOptions['external'];
   plugins?: RollupOptions['plugins'];
 
   // 自定义配置
   target: 'node' | 'browser' | 'common';
   define?: Record<string, any>;
-  useTerser?: boolean;
+  minifiy?: boolean;
   browserslist?: string | string[] | Record<string, string | string[]>;
 }
 
+export type RollupConfig = RollupOptions & { output: OutputOptions };
 // 目标构建类型
 export const BUILD_FORMATS = {
   CJS: 'cjs',
@@ -32,7 +34,37 @@ export const BUILD_FORMATS = {
   IIFE: 'iife',
 };
 
-export function createRollupConfig(options: CreateRollupConfigOptions) {
+/**
+ * 生成打包后的字符串
+ *
+ * @export
+ * @param {CreateRollupConfigOptions} options
+ * @returns {*}  {Promise<string>}
+ */
+export async function rollupBundleString(options: CreateRollupConfigOptions): Promise<BundledStringResult> {
+  const rollupConfig = createRollupConfig({
+    format: 'iife',
+    sourcemap: false,
+    ...options,
+  });
+  const { output: outputConfig, ...inputConfig } = rollupConfig;
+  const bundle = await rollup(inputConfig as RollupOptions);
+  const originalResult = await bundle.generate(outputConfig as OutputOptions);
+  const string = originalResult?.output?.[0]?.code || '';
+  return {
+    string,
+    originalResult,
+  };
+}
+
+/**
+ * 创建 rollup 配置
+ *
+ * @export
+ * @param {CreateRollupConfigOptions} options
+ * @returns {*}  {RollupConfig}
+ */
+export function createRollupConfig(options: CreateRollupConfigOptions): RollupConfig {
   const nodeModulePaths = getNodeModulePaths([path.resolve('./')]);
   const requireResolve = getRequireResolve(nodeModulePaths);
   const { input, format, sourcemap, browserslist, plugins } = formatCreateRollupConfigOptions(options);
@@ -40,7 +72,7 @@ export function createRollupConfig(options: CreateRollupConfigOptions) {
     format,
     sourcemap,
     exports: 'auto',
-  };
+  } as const;
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
   const babelPlugin = babel({
     extensions,
@@ -97,9 +129,9 @@ export function createRollupConfig(options: CreateRollupConfigOptions) {
       // tsPlugin,
       ...plugins,
     ],
-    onwarn: (msg, warn) => {
-      if (!/Circular/.test(msg)) {
-        warn(msg);
+    onwarn: (warning, warnCallback) => {
+      if (!/Circular/.test(warning.message)) {
+        warnCallback(warning);
       }
     },
     treeshake: {
@@ -108,17 +140,23 @@ export function createRollupConfig(options: CreateRollupConfigOptions) {
   };
 }
 
-export function formatCreateRollupConfigOptions(options: CreateRollupConfigOptions) {
+/**
+ * 格式化入参
+ *
+ * @param {CreateRollupConfigOptions} options
+ * @returns {*} 
+ */
+function formatCreateRollupConfigOptions(options: CreateRollupConfigOptions) {
   const {
     input,
     format,
     sourcemap,
     external: rawExternal,
     plugins: rawPlugins,
-    
+
     target,
     define: rawDefine,
-    useTerser: rawUseTerser,
+    minifiy: rawMinify,
     browserslist: rawBrowserslist,
   } = options;
   if (!input) throw new Error('input 不能为空');
@@ -138,25 +176,29 @@ export function formatCreateRollupConfigOptions(options: CreateRollupConfigOptio
   const external = rawExternal ?? [];
   const plugins = rawPlugins ?? [];
   const define = rawDefine ?? {};
-  const useTerser = rawUseTerser ?? false;
-  if (useTerser) {
-    plugins.push(...[
-      terser({
-        ecma: 5,
-        module: /^esm/.test(format),
-        compress: {
-          pure_getters: true,
-        },
-        safari10: true,
-      }),
-    ]);
+  const minifiy = rawMinify ?? false;
+  if (minifiy) {
+    plugins.push(
+      ...[
+        terser({
+          ecma: 5,
+          module: /^esm/.test(format),
+          compress: {
+            pure_getters: true,
+          },
+          safari10: true,
+        }),
+      ]
+    );
   }
-  plugins.unshift(...[
-    replace({
-      values: define,
-      preventAssignment: true,
-    })
-  ]);
+  plugins.unshift(
+    ...[
+      replace({
+        values: define,
+        preventAssignment: true,
+      }),
+    ]
+  );
   return {
     input,
     format,
@@ -164,11 +206,16 @@ export function formatCreateRollupConfigOptions(options: CreateRollupConfigOptio
     external,
     plugins,
     target,
-    useTerser,
+    minifiy,
     browserslist,
   };
 }
 
+/**
+ * 获取默认的兼容性配置列表
+ *
+ * @returns {*} 
+ */
 function getDefaultBrowserslistMap() {
   return {
     node: ['node >= 12.0'],

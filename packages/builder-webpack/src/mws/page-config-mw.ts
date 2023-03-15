@@ -21,7 +21,8 @@ import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html
       title,
       description,
       useInjection,
-      useTerser: buildConfig.mode === 'production',
+      minify: buildConfig.mode === 'production',
+      mode: buildConfig.mode,
     };
     // html 操作
     chainConfig

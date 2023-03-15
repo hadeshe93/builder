@@ -16,7 +16,7 @@ async function main() {
       __USE_INJECTION_FLEXIBLE__: JSON.stringify(true),
       __USE_INJECTION_PAGE_SPEED_TESTER__: JSON.stringify(true),
     },
-    // useTerser: true,
+    // minify: true,
   });
   const { output: rawOutputConfig, ...inputConfig } = rollupConfig;
   const outputConfig = {

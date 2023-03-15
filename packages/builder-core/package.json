@@ -13,7 +13,8 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
-    "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
+    "smoke-test:index": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
+    "smoke-test:html-injector": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/html-injector.test.ts",
     "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts builder-core"
   },
   "types": "dist/index.d.ts",
@@ -63,6 +64,7 @@
     "@rollup/plugin-replace": "^5.0.2",
     "cheerio": "1.0.0-rc.12",
     "core-js": "^3",
+    "esbuild": "^0.17.11",
     "fs-extra": "^10.1.0",
     "ora": "^5.4.1",
     "rollup": "^2.50.4",

@@ -13,7 +13,7 @@ const projectConfig: ProjectConfig = {
   },
   build: {
     publicPath: '/demo1/',
-    devPort: 3004,
+    devPort: 3006,
   },
   middlewares: [
     ['@hadeshe93/wpconfig-mw-vue3']

@@ -1,22 +1,34 @@
 import { Compiler } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { HtmlInjector } from '@hadeshe93/builder-core';
+import { HtmlInjector, SupportedBuilderMode } from '@hadeshe93/builder-core';
 
-export type HtmlInjectionPluginOptions = ConstructorParameters<typeof HtmlInjector>[1];
+export type HtmlInjectionPluginOptions = ConstructorParameters<typeof HtmlInjector>[1] & {
+  mode: SupportedBuilderMode;
+};
 
 export default class HtmlInjectionPlugin {
   name = HtmlInjectionPlugin.name;
-  options: HtmlInjectionPluginOptions = {};
+  options: HtmlInjectionPluginOptions;
 
   constructor(options: HtmlInjectionPluginOptions) {
     this.options = formatOptions(options);
   }
 
   apply(compiler: Compiler) {
+    const htmlInjectorMap: Map<string ,HtmlInjector> = new Map();
     compiler.hooks.compilation.tap(this.name, (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(this.name, async (data, cb) => {
-        const injector = new HtmlInjector(data.html, this.options);
-        data.html = await injector.getInjectedHtml();
+        const { mode, ...options } = this.options;
+        const { html, plugin } = data;
+        const { userOptions: { template } } = plugin;
+        let injector = htmlInjectorMap.get(template);
+        if (!injector) {
+          injector = new HtmlInjector(html, options);
+          htmlInjectorMap.set(template, injector);
+        } else {
+          injector.reloadTemplateHtml(html);
+        }
+        data.html = await injector.getInjectedHtml({ builder: mode === 'production' ? 'rollup' : 'esbuild' });
         cb(null, data);
       });
     });
@@ -30,11 +42,12 @@ export default class HtmlInjectionPlugin {
  * @returns {*}  {HtmlInjectionPluginOptions}
  */
 function formatOptions(rawOptions: HtmlInjectionPluginOptions): HtmlInjectionPluginOptions {
-  const { title = '', description = '', useInjection, useTerser = false } = rawOptions;
+  const { title = '', description = '', useInjection, minify = false, mode = 'development' } = rawOptions;
   return {
     title,
     description,
     useInjection,
-    useTerser,
+    minify,
+    mode,
   };
 }
