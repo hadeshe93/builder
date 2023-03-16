@@ -30,9 +30,7 @@ export class HtmlInjector {
   injectedMap: Map<string, boolean> = new Map();
 
   constructor(templateHtml: string, options: HtmlInjectionPluginOptions) {
-    this.templateHtml = templateHtml;
-    this.options = options;
-    this.$ = cheerioLoad(templateHtml);
+    this.reloadTemplateHtml(templateHtml, options);
   }
 
   /**
@@ -40,9 +38,31 @@ export class HtmlInjector {
    *
    * @param {string} templateHtml
    */
-  reloadTemplateHtml(templateHtml: string) {
+  reloadTemplateHtml(templateHtml: string, options?: HtmlInjectionPluginOptions) {
+    if (options) {
+      this.options = options;
+    }
+    const $ = cheerioLoad(templateHtml);
+    // 处理基本元素
+    const { title, description } = this.options;
+    const $title = $('title');
+    if ($title.length === 0) {
+      $('head').append(`<title>${title}</title>`);
+    } else {
+      $title.text(title);
+    }
+    const $desc = $('meta[name="description"]');
+    if ($desc.length === 0) {
+      $('title').after(`<meta name="description" content="${description}">`);
+    } else {
+      $desc.attr('content', description);
+    }
+
+    // 最后赋值
     this.templateHtml = templateHtml;
-    this.$ = cheerioLoad(templateHtml);
+    this.$ = $;
+    const theHtml = $.html();
+    console.log(theHtml);
   }
 
   async getInjectedHtml(opts: GetInjectedHtmlOptions) {
