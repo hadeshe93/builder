@@ -1,15 +1,16 @@
-import { AbstractBuilder, BuilderConfig } from '@hadeshe93/builder-core';
+import { formatBuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
 import { doDev, doBuild } from './helpers/do';
-import { getWebpackConfigGetters, defineProjectConfig } from './helpers/configs';
 import { getCommonChainConfig } from './wpconfig/common.config';
 import { getDevChainConfig } from './wpconfig/dev.config';
 import { getProdChainConfig } from './wpconfig/prod.config';
 import { getProdDllChainConfig } from './wpconfig/prod.dll.config';
+import { getWebpackConfigGetters, defineBuilderConfig, defineProjectConfig } from './helpers/configs';
 
 import {
   ProjectMiddleware,
   ProjectMiddlewares,
   ProjectConfig,
+  BuilderConfig,
 } from './typings/index';
 
 export default class WebpackBuilder implements AbstractBuilder {
@@ -22,7 +23,7 @@ export default class WebpackBuilder implements AbstractBuilder {
    * @memberof BuilderWebpack
    */
   public async start(buildConfig: BuilderConfig) {
-    const { mode, builderName } = buildConfig;
+    const { mode, builderName } = formatBuilderConfig(buildConfig);
     if (builderName !== 'webpack') return;
 
     const webpackConfigGetters = await getWebpackConfigGetters(buildConfig);
@@ -42,6 +43,7 @@ export default class WebpackBuilder implements AbstractBuilder {
 }
 
 export {
+  defineBuilderConfig,
   defineProjectConfig,
   getCommonChainConfig,
   getDevChainConfig,
@@ -53,4 +55,5 @@ export type {
   ProjectMiddleware,
   ProjectMiddlewares,
   ProjectConfig,
+  BuilderConfig,
 }

@@ -1,6 +1,5 @@
 import path from 'path';
-import { BuilderConfig, ProjectConfig, formatBuilderConfig } from '@hadeshe93/builder-core';
-import BuilderVite from '../src/index';
+import BuilderVite, { ProjectConfig } from '../src/index';
 
 const projectPath = '/cbs/xcode/web-project-starter/packages/vite3-vue3/apps/app1';
 const pageName = 'demo1';
@@ -9,13 +8,11 @@ const projectConfig: ProjectConfig = require(path.resolve(projectPagePath, 'proj
 process.chdir(projectPath);
 console.log('process.cwd():', process.cwd());
 
-const builderConfig: BuilderConfig = formatBuilderConfig({
+const builder = new BuilderVite();
+builder.start({
   mode: 'development',
   builderName: 'vite',
   projectPath,
   pageName: 'demo1',
   projectConfig,
 });
-
-const builder = new BuilderVite();
-builder.start(builderConfig);

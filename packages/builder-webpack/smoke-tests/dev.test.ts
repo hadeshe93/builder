@@ -1,5 +1,4 @@
-import { BuilderConfig, ProjectConfig, formatBuilderConfig } from '@hadeshe93/builder-core';
-import BuilderWebpack from '../src/index';
+import BuilderWebpack, { ProjectConfig } from '../src/index';
 
 const projectConfig: ProjectConfig = {
   page: {
@@ -20,15 +19,14 @@ const projectConfig: ProjectConfig = {
   ],
 };
 
-const builderConfig: BuilderConfig = formatBuilderConfig({
+
+const builder = new BuilderWebpack();
+builder.start({
   mode: 'development',
   builderName: 'webpack',
   projectPath: '/cbs/xcode/web-project-starter/packages/webpack5-vue3',
   pageName: 'demo1',
   projectConfig,
-});
-
-const builder = new BuilderWebpack();
-builder.start(builderConfig).then(() => {
+}).then(() => {
   console.log('启动成功');
 });

@@ -1,11 +1,11 @@
 import { Configuration } from 'webpack';
 import WebpackChain from 'webpack-chain';
-import { BuilderConfig, composeMiddlewares } from '@hadeshe93/builder-core';
+import { composeMiddlewares } from '@hadeshe93/builder-core';
 
 import getPageConfigMw from '../mws/page-config-mw';
 import getDllConfigMw from '../mws/dll-config-mw';
 import getCommonConfigMw from '../mws/common-config-mw';
-import { ProjectConfig } from '../typings/index';
+import { ProjectConfig, BuilderConfig } from '../typings/index';
 
 /**
  * 获取 webpack 的构建配置列表
@@ -51,7 +51,7 @@ export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promi
 
 /**
  * 定义项目核心构建配置
- * - 核心是对外提供类型帮助
+ * - 目标是对外提供类型帮助
  *
  * @export
  * @param {ProjectConfig} projectConfig
@@ -59,4 +59,16 @@ export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promi
  */
 export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
   return projectConfig;
+}
+
+/**
+ * 定义项目构建器配置
+ * - 目标是对外提供类型帮助
+ *
+ * @export
+ * @param {BuilderConfig} builderConfig
+ * @returns {*}  {BuilderConfig}
+ */
+export function defineBuilderConfig(builderConfig: BuilderConfig): BuilderConfig {
+  return builderConfig;
 }

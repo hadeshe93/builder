@@ -1,12 +1,13 @@
 import path from 'path';
 import { debug } from './utils/debug';
 import { doDev, doBuild } from './helpers/do';
-import type { BuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
+import { formatBuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
 import { getConfigGetters, defineProjectConfig } from './helpers/configs';
 import {
   ProjectMiddleware,
   ProjectMiddlewares,
   ProjectConfig,
+  BuilderConfig,
 } from './typings/index';
 
 export default class ViteBuilder implements AbstractBuilder {
@@ -16,7 +17,7 @@ export default class ViteBuilder implements AbstractBuilder {
   assetsPath = path.resolve(__dirname, '../assets');
 
   async start(builderConfig: BuilderConfig) {
-    const { mode, builderName } = builderConfig;
+    const { mode, builderName } = formatBuilderConfig(builderConfig);
     if (builderName !== 'vite') {
       debug('builderName is not "vite", quit normally.');
       return;

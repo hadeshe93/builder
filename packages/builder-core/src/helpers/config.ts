@@ -9,7 +9,7 @@ import { ProjectConfig, BuilderConfig } from '../typings/index';
  * @param {BuilderConfig} builderConfig
  * @returns {*} 
  */
-export function formatBuilderConfig(builderConfig: BuilderConfig) {
+export function formatBuilderConfig<T extends BuilderConfig>(builderConfig: T) {
   const { mode, builderName, projectPath, pageName, projectConfig } = builderConfig;
   return {
     mode: mode || 'development',
@@ -17,7 +17,7 @@ export function formatBuilderConfig(builderConfig: BuilderConfig) {
     projectPath: projectPath || '',
     pageName: pageName || '',
     projectConfig: formatProjectConfig(projectConfig),
-  };
+  } as const;
 }
 
 /**
@@ -27,7 +27,7 @@ export function formatBuilderConfig(builderConfig: BuilderConfig) {
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
+export function formatProjectConfig<T extends ProjectConfig>(projectConfig: T) {
   const { page: oriPage, build: oriBuild, middlewares: oriMiddlewares } = projectConfig || {};
   const { useInjection: oriUseInjection, pxtoremOptions: oriPxtoremOptions } = oriPage;
   const useInjection = oriUseInjection ? {
@@ -81,7 +81,7 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
     page,
     build,
     middlewares,
-  };
+  } as const;
 }
 
 /**
@@ -92,7 +92,7 @@ export function formatProjectConfig(projectConfig: ProjectConfig): ProjectConfig
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
+export function defineProjectConfig<T extends ProjectConfig>(projectConfig: T): T {
   return projectConfig;
 }
 
@@ -103,6 +103,6 @@ export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig
  * @param {BuilderConfig} builderConfig
  * @returns {*}  {BuilderConfig}
  */
-export function defineBuilderConfig(builderConfig: BuilderConfig): BuilderConfig {
+export function defineBuilderConfig<T extends BuilderConfig>(builderConfig: T): T {
   return builderConfig;
 }
