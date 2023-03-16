@@ -1,5 +1,13 @@
 # @hadeshe93/builder-vite
 
+## 0.2.4
+
+### Patch Changes
+
+- 8aa335a: 完善 builder
+- Updated dependencies [8aa335a]
+  - @hadeshe93/builder-core@0.2.5
+
 ## 0.2.3
 
 ### Patch Changes

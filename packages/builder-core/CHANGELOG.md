@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.5
+
+### Patch Changes
+
+- 8aa335a: 完善 builder
+
 ## 0.2.4
 
 ### Patch Changes
