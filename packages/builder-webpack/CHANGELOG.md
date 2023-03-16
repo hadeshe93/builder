@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.5
+
+### Patch Changes
+
+- 1d5897d: 修复 html 模板注入基础元素的问题
+- Updated dependencies [1d5897d]
+  - @hadeshe93/builder-core@0.2.6
+
 ## 0.2.4
 
 ### Patch Changes
