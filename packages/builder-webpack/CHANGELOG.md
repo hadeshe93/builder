@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.8
+
+### Patch Changes
+
+- 525a49d: 修复 builder-core 中编译 partialScripts 的问题
+- Updated dependencies [525a49d]
+  - @hadeshe93/builder-core@0.2.8
+
 ## 0.2.7
 
 ### Patch Changes
