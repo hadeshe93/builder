@@ -16,7 +16,6 @@ import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html
     // 这里仅需要根据 page 业务配置来做额外处理，build 目前暂时不用
     const { page } = projectConfig;
     const { title, description, useInjection, pxtoremOptions } = page;
-    const { flexible } = useInjection;
     const htmlInjectionPluginOptions: HtmlInjectionPluginOptions = {
       title,
       description,
@@ -30,7 +29,7 @@ import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html
       .use(HtmlInjectionPlugin, [htmlInjectionPluginOptions]);
 
     // postcss-loader 操作
-    if (flexible) {
+    if (useInjection?.flexible) {
       chainConfig.module
         .rule('css')
         .use('postcss-loader')
