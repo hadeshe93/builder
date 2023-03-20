@@ -1,5 +1,12 @@
 import { build, BuildOptions } from 'esbuild';
-import { BundledStringResult } from '../typings/index';
+import { BundledStringResult } from '../../typings/index';
+import { createEsbuildPluginReplaceMeta } from './plugins/replace-meta';
+import { createEsbuildExternalizeDepsPlugin } from './plugins/externalize-deps';
+
+export {
+  createEsbuildPluginReplaceMeta,
+  createEsbuildExternalizeDepsPlugin,
+};
 
 export interface CreateEsbuildConfigOptions {
   // 原生配置
@@ -16,6 +23,7 @@ export interface CreateEsbuildConfigOptions {
 
 /**
  * 生成打包后的字符串
+ * - 适用于打包构建简单的模板脚本代码
  *
  * @export
  * @param {CreateEsbuildConfigOptions} options

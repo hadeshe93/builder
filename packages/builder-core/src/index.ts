@@ -2,7 +2,12 @@ import path from 'path';
 import { excuteTasks } from './helpers/task';
 import { HtmlInjector } from './helpers/html-injector';
 import { logger, Logger } from './utils/logger';
-import { formatBuilderConfig, formatProjectConfig, defineProjectConfig, defineBuilderConfig } from './helpers/config';
+import {
+  formatBuilderConfig,
+  formatProjectConfig,
+  defineProjectConfig,
+  defineBuilderConfig
+} from './helpers/config';
 
 import {
   BuildOrderType,
@@ -19,10 +24,26 @@ interface BuilderCoreOptions {
   logger: Logger;
 }
 
-export { excuteTasks, formatBuilderConfig, formatProjectConfig, defineProjectConfig, defineBuilderConfig };
+// 资源文件夹路径
+const assetsPath = path.resolve(__dirname, '../assets');
+// 初始化 HtmlInjector 类
+HtmlInjector.init({
+  partialScriptEntries: [
+    path.resolve(assetsPath, 'injection-script/index.ts'),
+  ],
+});
+
+export {
+  excuteTasks,
+  formatBuilderConfig,
+  formatProjectConfig,
+  defineProjectConfig,
+  defineBuilderConfig,
+  HtmlInjector,
+};
 export { composeMiddlewares } from './helpers/middleware';
 export { rollupBundleString } from './helpers/rollup';
-export { esbuildBundleString } from './helpers/esbuild';
+export { esbuildBundleString, createEsbuildPluginReplaceMeta, createEsbuildExternalizeDepsPlugin } from './helpers/esbuild';
 
 export type {
   BuilderConfig,
@@ -33,16 +54,6 @@ export type {
   SupportedBuilderMode,
   BuilderCoreOptions,
 };
-
-// 资源文件夹路径
-const assetsPath = path.resolve(__dirname, '../assets');
-// 初始化 HtmlInjector 类
-HtmlInjector.init({
-  partialScriptEntries: [
-    path.resolve(assetsPath, 'injection-script/index.ts'),
-  ],
-});
-export { HtmlInjector };
 
 export abstract class AbstractBuilder {
   public abstract start(builderConfig: BuilderConfig): Promise<any>;
