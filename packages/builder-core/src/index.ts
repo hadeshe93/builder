@@ -21,7 +21,7 @@ import {
 } from './typings/index';
 
 interface BuilderCoreOptions {
-  logger: Logger;
+  logger?: Logger;
 }
 
 // 资源文件夹路径

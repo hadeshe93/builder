@@ -1,4 +1,7 @@
+import { nanoid } from 'nanoid';
 import { load as cheerioLoad, CheerioAPI } from 'cheerio';
+
+import { debug } from '../utils/debug';
 import { rollupBundleString } from "./rollup";
 import { esbuildBundleString } from "./esbuild";
 import { ProjectConfig } from '@/typings/index';
@@ -27,7 +30,7 @@ export class HtmlInjector {
   templateHtml: string;
   options: HtmlInjectionPluginOptions = {};
   $: CheerioAPI;
-  injectedMap: Map<string, boolean> = new Map();
+  injectedMap: Map<string, { id: string, partialScriptContent: string }> = new Map();
 
   constructor(templateHtml: string, options: HtmlInjectionPluginOptions) {
     this.reloadTemplateHtml(templateHtml, options);
@@ -62,20 +65,27 @@ export class HtmlInjector {
     this.templateHtml = templateHtml;
     this.$ = $;
     const theHtml = $.html();
-    console.log(theHtml);
+    debug(`[reloadTemplateHtml] ${theHtml}`);
   }
 
   async getInjectedHtml(opts: GetInjectedHtmlOptions) {
     const { partialScriptEntries = [] } = htmlInjectorClosureData;
     for (const entry of partialScriptEntries) {
-      if (this.injectedMap.get(entry)) continue;
-      const partialScriptContent = await this.getInjectedPartialScript({
-        entry,
-        ...opts,
-      });
+      const cache = this.injectedMap.get(entry);
+      const stillCacheInHtml = Boolean(cache?.id) && this.$(`script[data-id="${cache.id}"]`).length > 0;
+      if (stillCacheInHtml) continue;
+
+      let partialScriptContent = cache?.partialScriptContent || '';
+      if (!partialScriptContent) {
+        partialScriptContent = await this.getInjectedPartialScript({
+          entry,
+          ...opts,
+        });
+      }
       if (partialScriptContent) {
-        this.$('head').append(`<script>${partialScriptContent}</script>`);
-        this.injectedMap.set(entry, true);
+        const id = cache?.id || nanoid();
+        this.$('head').append(`<script data-id="${id}">${partialScriptContent}</script>`);
+        this.injectedMap.set(entry, { id, partialScriptContent });
       }
     }
     return this.$.html();
