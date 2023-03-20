@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.7
+
+### Patch Changes
+
+- 27a2d02: builder-core 新增 esbuild 插件
+
 ## 0.2.6
 
 ### Patch Changes

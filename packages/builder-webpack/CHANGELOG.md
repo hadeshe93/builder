@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.6
+
+### Patch Changes
+
+- 27a2d02: builder-core 新增 esbuild 插件
+- Updated dependencies [27a2d02]
+  - @hadeshe93/builder-core@0.2.7
+
 ## 0.2.5
 
 ### Patch Changes
