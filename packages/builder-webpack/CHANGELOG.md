@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.7
+
+### Patch Changes
+
+- cc09abb: 修复 builder-webpack 中读取 useInjection.flexible 的问题
+
 ## 0.2.6
 
 ### Patch Changes
