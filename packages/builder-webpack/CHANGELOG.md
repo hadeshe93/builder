@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.9
+
+### Patch Changes
+
+- c7ade6c: 补充完善 defineConfig 能接收函数
+- Updated dependencies [c7ade6c]
+  - @hadeshe93/builder-core@0.2.9
+
 ## 0.2.8
 
 ### Patch Changes
