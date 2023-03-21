@@ -1,6 +1,6 @@
 import path from 'path';
 import { getRequireResolve, getNodeModulePaths } from '@hadeshe93/wpconfig-core';
-import { ProjectConfig, BuilderConfig } from '../typings/index';
+import { ProjectConfig, BuilderConfig, DefineProjectConfigFunction } from '../typings/index';
 
 /**
  * 格式化构建器相关的配置
@@ -92,8 +92,8 @@ export function formatProjectConfig<T extends ProjectConfig>(projectConfig: T) {
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig<T extends ProjectConfig>(projectConfig: T): T {
-  return projectConfig;
+export function defineProjectConfig<T extends ProjectConfig>(projectConfigOrFunc: T | DefineProjectConfigFunction): T | DefineProjectConfigFunction {
+  return projectConfigOrFunc;
 }
 
 /**

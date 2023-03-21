@@ -11,6 +11,7 @@ import {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
+  DefineProjectConfigFunction,
 } from './typings/index';
 
 export default class WebpackBuilder implements AbstractBuilder {
@@ -56,4 +57,5 @@ export type {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
+  DefineProjectConfigFunction,
 }

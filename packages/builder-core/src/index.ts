@@ -18,6 +18,8 @@ import {
   SupportedBuilderInsMap,
   SupportedBuilderNames,
   SupportedBuilderMode,
+  DefineProjectConfigFunction,
+  DefineProjectConfigFunctionOptions,
 } from './typings/index';
 
 interface BuilderCoreOptions {
@@ -53,6 +55,8 @@ export type {
   SupportedBuilderNames,
   SupportedBuilderMode,
   BuilderCoreOptions,
+  DefineProjectConfigFunction,
+  DefineProjectConfigFunctionOptions,
 };
 
 export abstract class AbstractBuilder {

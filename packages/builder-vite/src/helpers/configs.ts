@@ -2,7 +2,7 @@ import ViteChain from '@hadeshe93/vite-chain';
 import { composeMiddlewares } from '@hadeshe93/builder-core';
 import getCommonConfigMw from '../mws/common-config-mw';
 import getPageConfigMw from '../mws/page-config-mw';
-import { ProjectConfig, GetConfigGettersOptions } from '../typings/index';
+import { BuilderConfig, ProjectConfig, GetConfigGettersOptions, DefineProjectConfigFunction } from '../typings/index';
 
 /**
  * 获取最终的构建配置
@@ -10,7 +10,7 @@ import { ProjectConfig, GetConfigGettersOptions } from '../typings/index';
  *
  * @export
  * @param {GetConfigGettersOptions} options
- * @returns {*} 
+ * @returns {*}
  */
 export async function getConfigGetters(options: GetConfigGettersOptions) {
   const { builderConfig } = options;
@@ -24,10 +24,7 @@ export async function getConfigGetters(options: GetConfigGettersOptions) {
   ];
 
   const middlewaresList = [];
-  middlewaresList.push([
-    ...defaultMiddlewares,
-    ...middlewares,
-  ])
+  middlewaresList.push([...defaultMiddlewares, ...middlewares]);
   const composedFns = await Promise.all(middlewaresList.map((middlewares) => composeMiddlewares(middlewares)));
   return await Promise.all(
     composedFns.map((composedFn) => {
@@ -48,6 +45,19 @@ export async function getConfigGetters(options: GetConfigGettersOptions) {
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
-  return projectConfig;
+export function defineProjectConfig(
+  projectConfigOrFunc: ProjectConfig | DefineProjectConfigFunction
+): ProjectConfig | DefineProjectConfigFunction {
+  return projectConfigOrFunc;
+}
+
+/**
+ * 定义项目的构建配置
+ *
+ * @export
+ * @param {BuilderConfig} builderConfig
+ * @returns {*}
+ */
+export function defineBuilderConfig(builderConfig: BuilderConfig) {
+  return builderConfig;
 }

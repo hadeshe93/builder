@@ -2,12 +2,13 @@ import path from 'path';
 import { debug } from './utils/debug';
 import { doDev, doBuild } from './helpers/do';
 import { formatBuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
-import { getConfigGetters, defineProjectConfig } from './helpers/configs';
+import { getConfigGetters, defineProjectConfig, defineBuilderConfig } from './helpers/configs';
 import {
   ProjectMiddleware,
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
+  DefineProjectConfigFunction,
 } from './typings/index';
 
 export default class ViteBuilder implements AbstractBuilder {
@@ -45,10 +46,13 @@ export default class ViteBuilder implements AbstractBuilder {
 
 export {
   defineProjectConfig,
+  defineBuilderConfig,
 };
 
 export type {
   ProjectMiddleware,
   ProjectMiddlewares,
   ProjectConfig,
+  BuilderConfig,
+  DefineProjectConfigFunction,
 }

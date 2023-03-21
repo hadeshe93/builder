@@ -5,7 +5,7 @@ import { composeMiddlewares } from '@hadeshe93/builder-core';
 import getPageConfigMw from '../mws/page-config-mw';
 import getDllConfigMw from '../mws/dll-config-mw';
 import getCommonConfigMw from '../mws/common-config-mw';
-import { ProjectConfig, BuilderConfig } from '../typings/index';
+import { BuilderConfig, DefineProjectConfigFunction } from '../typings/index';
 
 /**
  * 获取 webpack 的构建配置列表
@@ -57,8 +57,8 @@ export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promi
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig(projectConfig: ProjectConfig): ProjectConfig {
-  return projectConfig;
+export function defineProjectConfig(projectConfigOrFunc: DefineProjectConfigFunction): DefineProjectConfigFunction {
+  return projectConfigOrFunc;
 }
 
 /**

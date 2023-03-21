@@ -1,4 +1,4 @@
-import type { ProjectConfig as BaseProjectConfig, BuilderConfig as BaseBuilderConfig } from '@hadeshe93/builder-core';
+import type { ProjectConfig as BaseProjectConfig, BuilderConfig as BaseBuilderConfig, DefineProjectConfigFunctionOptions } from '@hadeshe93/builder-core';
 import type ViteChain from '@hadeshe93/vite-chain';
 
 export type ProjectMiddleware = [string, any?] | [(...args: any[]) => (chainConfig: ViteChain) => ViteChain, any?];
@@ -17,3 +17,5 @@ export interface GetConfigGettersOptions {
     assetsPath: string;
   };
 }
+
+export type DefineProjectConfigFunction = (options: DefineProjectConfigFunctionOptions) => ProjectConfig | Promise<ProjectConfig>;

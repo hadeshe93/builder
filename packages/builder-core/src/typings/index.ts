@@ -66,3 +66,10 @@ export interface BundledStringResult {
   string: string;
   originalResult: any;
 }
+
+export interface DefineProjectConfigFunctionOptions {
+  mode: string;
+  builderName: string;
+}
+
+export type DefineProjectConfigFunction = (options: DefineProjectConfigFunctionOptions) => ProjectConfig | Promise<ProjectConfig>;
