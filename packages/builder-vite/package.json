@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/builder-vite",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/builder/packages/builder-vite/#readme",
@@ -53,7 +53,7 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
-    "@hadeshe93/builder-core": "workspace:^0.2.10",
+    "@hadeshe93/builder-core": "workspace:^0.2.11",
     "@hadeshe93/vite-chain": "workspace:^0.2.0",
     "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",

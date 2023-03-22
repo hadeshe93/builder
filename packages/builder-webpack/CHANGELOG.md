@@ -1,5 +1,13 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.11
+
+### Patch Changes
+
+- d57031f: 修复配置项拼写问题和配置类型问题
+- Updated dependencies [d57031f]
+  - @hadeshe93/builder-core@0.2.11
+
 ## 0.2.10
 
 ### Patch Changes
