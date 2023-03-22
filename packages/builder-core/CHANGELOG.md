@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 0.2.10
+
+### Patch Changes
+
+- 0fcaa05: 完善配置类型和工具函数
+
 ## 0.2.9
 
 ### Patch Changes
