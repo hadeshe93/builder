@@ -1,16 +1,16 @@
 import WebpackChain from 'webpack-chain';
-import { BuilderConfig } from '@hadeshe93/builder-core';
 
+import { PureBuilderConfig } from '@/typings/index';
 import HtmlInjectionPlugin, { HtmlInjectionPluginOptions } from '../plugins/html-injection-plugin/index';
 
 /**
  * 用来解析并适配构建配置的插件中间件
  *
  * @export
- * @param {BuilderConfig} buildConfig
+ * @param {PureBuilderConfig} buildConfig
  * @returns {*} 
  */
- export default function getPageConfigMw(buildConfig: BuilderConfig) {
+ export default function getPageConfigMw(buildConfig: PureBuilderConfig) {
   return function(chainConfig: WebpackChain): WebpackChain {
     const { projectConfig } = buildConfig;
     // 这里仅需要根据 page 业务配置来做额外处理，build 目前暂时不用

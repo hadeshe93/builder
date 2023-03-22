@@ -1,23 +1,45 @@
 import path from 'path';
 import { getRequireResolve, getNodeModulePaths } from '@hadeshe93/wpconfig-core';
-import { ProjectConfig, BuilderConfig, DefineProjectConfigFunction } from '../typings/index';
+import { ProjectConfig, BuilderConfig, PureBuilderConfig, GetProjectConfig } from '../typings/index';
 
 /**
  * 格式化构建器相关的配置
  *
  * @export
  * @param {BuilderConfig} builderConfig
- * @returns {*} 
+ * @returns {*}
  */
-export function formatBuilderConfig<T extends BuilderConfig>(builderConfig: T) {
-  const { mode, builderName, projectPath, pageName, projectConfig } = builderConfig;
-  return {
+export function formatBuilderConfig<
+  T extends BuilderConfig = BuilderConfig,
+  R extends PureBuilderConfig = PureBuilderConfig
+>(builderConfig: T): Promise<R> | R {
+  const { mode, builderName, projectPath, pageName, projectConfig: originalProjectConfig } = builderConfig;
+  let projectConfig: T['projectConfig'] | Promise<T['projectConfig']>;
+  if (typeof originalProjectConfig === 'function') {
+    projectConfig = originalProjectConfig({ mode, builderName });
+  } else {
+    projectConfig = originalProjectConfig;
+  }
+  const commonBuilderConfig: Omit<BuilderConfig, 'projectConfig'> = {
     mode: mode || 'development',
     builderName: builderName || 'webpack',
     projectPath: projectPath || '',
     pageName: pageName || '',
+  };
+  if (projectConfig instanceof Promise) {
+    return projectConfig.then(
+      (actualProjectConfig: ProjectConfig) =>
+        ({
+          ...commonBuilderConfig,
+          projectConfig: formatProjectConfig(actualProjectConfig),
+        } as R)
+    );
+  }
+
+  return {
+    ...commonBuilderConfig,
     projectConfig: formatProjectConfig(projectConfig),
-  } as const;
+  } as R;
 }
 
 /**
@@ -30,11 +52,13 @@ export function formatBuilderConfig<T extends BuilderConfig>(builderConfig: T) {
 export function formatProjectConfig<T extends ProjectConfig>(projectConfig: T) {
   const { page: oriPage, build: oriBuild, middlewares: oriMiddlewares } = projectConfig || {};
   const { useInjection: oriUseInjection, pxtoremOptions: oriPxtoremOptions } = oriPage;
-  const useInjection = oriUseInjection ? {
-    debugger: Boolean(oriUseInjection?.debugger),
-    flexible: Boolean(oriUseInjection?.flexible),
-    pageSpeedTester: Boolean(oriUseInjection?.pageSpeedTester),
-  } : undefined;
+  const useInjection = oriUseInjection
+    ? {
+        debugger: Boolean(oriUseInjection?.debugger),
+        flexible: Boolean(oriUseInjection?.flexible),
+        pageSpeedTester: Boolean(oriUseInjection?.pageSpeedTester),
+      }
+    : undefined;
   // 处理 page 配置
   const page = {
     title: oriPage.title || '页面标题',
@@ -59,24 +83,23 @@ export function formatProjectConfig<T extends ProjectConfig>(projectConfig: T) {
     delete build.dllEntryMap;
   }
   // 处理 middlewares 配置
-  const middlewares = (oriMiddlewares || []).map((m) => {
-    const [mw] = m;
-    // 支持函数
-    if (typeof mw !== 'string') return typeof mw === 'function' ? m : undefined;
-    // 支持绝对路径
-    if (path.isAbsolute(mw)) return m;
-    // 注意：这里不支持相对路径，因为不知道相对于哪个路径，但可以在上层调用前格式化成绝对路径传入
-    const relativePathPrefixes = [
-      path.join('.', path.sep),
-      path.join('..', path.sep),
-    ];
-    if (!!relativePathPrefixes.find((prefix) => mw.startsWith(prefix))) return undefined;
-    // 支持直接写 npm 包名
-    const requireResolve = getRequireResolve(getNodeModulePaths());
-    const absPath = requireResolve(mw);
-    m[0] = absPath;
-    return m;
-  }).filter(m => !!m);
+  const middlewares = (oriMiddlewares || [])
+    .map((m) => {
+      const [mw] = m;
+      // 支持函数
+      if (typeof mw !== 'string') return typeof mw === 'function' ? m : undefined;
+      // 支持绝对路径
+      if (path.isAbsolute(mw)) return m;
+      // 注意：这里不支持相对路径，因为不知道相对于哪个路径，但可以在上层调用前格式化成绝对路径传入
+      const relativePathPrefixes = [path.join('.', path.sep), path.join('..', path.sep)];
+      if (!!relativePathPrefixes.find((prefix) => mw.startsWith(prefix))) return undefined;
+      // 支持直接写 npm 包名
+      const requireResolve = getRequireResolve(getNodeModulePaths());
+      const absPath = requireResolve(mw);
+      m[0] = absPath;
+      return m;
+    })
+    .filter((m) => !!m);
   return {
     page,
     build,
@@ -92,7 +115,9 @@ export function formatProjectConfig<T extends ProjectConfig>(projectConfig: T) {
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig<T extends ProjectConfig>(projectConfigOrFunc: T | DefineProjectConfigFunction): T | DefineProjectConfigFunction {
+export function defineProjectConfig<T extends ProjectConfig>(
+  projectConfigOrFunc: T | GetProjectConfig<T>
+): T | GetProjectConfig<T> {
   return projectConfigOrFunc;
 }
 

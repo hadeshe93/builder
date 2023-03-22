@@ -1,7 +1,7 @@
 import type {
   ProjectConfig as BaseProjectConfig,
   BuilderConfig as BaseBuilderConfig,
-  DefineProjectConfigFunctionOptions,
+  GetProjectConfigOptions,
 } from '@hadeshe93/builder-core';
 import type WebpackChain from 'webpack-chain';
 
@@ -13,9 +13,12 @@ export interface ProjectConfig extends BaseProjectConfig {
   middlewares: ProjectMiddlewares;
 }
 export interface BuilderConfig extends BaseBuilderConfig {
+  projectConfig: ProjectConfig | GetProjectConfig;
+}
+export interface PureBuilderConfig extends BuilderConfig {
   projectConfig: ProjectConfig;
 }
 
-export type DefineProjectConfigFunction = (
-  options: DefineProjectConfigFunctionOptions
+export type GetProjectConfig = (
+  options: GetProjectConfigOptions
 ) => ProjectConfig | Promise<ProjectConfig>;

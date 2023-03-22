@@ -1,14 +1,14 @@
 import WebpackChain from 'webpack-chain';
-import { BuilderConfig } from '@hadeshe93/builder-core';
 import { getDevChainConfig } from '../wpconfig/dev.config'; 
 import { getProdChainConfig } from '../wpconfig/prod.config'; 
+import { PureBuilderConfig } from '../typings/index';
 import { ParamsGetWebpackChainConfigs } from '../typings/configs';
 
-export default function getCommonConfigMw(buildConfig: BuilderConfig) {
+export default function getCommonConfigMw(buildConfig: PureBuilderConfig) {
   const { mode, projectPath, pageName, projectConfig } = buildConfig;
   const { build } = projectConfig;
   const params: ParamsGetWebpackChainConfigs = {
-    mode,
+    mode: mode as ParamsGetWebpackChainConfigs['mode'],
     projectPath,
     pageName,
     publicPath: build.publicPath,

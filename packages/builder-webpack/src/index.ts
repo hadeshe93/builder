@@ -11,7 +11,8 @@ import {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
-  DefineProjectConfigFunction,
+  PureBuilderConfig,
+  GetProjectConfig,
 } from './typings/index';
 
 export default class WebpackBuilder implements AbstractBuilder {
@@ -24,10 +25,11 @@ export default class WebpackBuilder implements AbstractBuilder {
    * @memberof BuilderWebpack
    */
   public async start(buildConfig: BuilderConfig) {
-    const { mode, builderName } = formatBuilderConfig(buildConfig);
+    const pureBuilderConfig = await formatBuilderConfig<BuilderConfig, PureBuilderConfig>(buildConfig);
+    const { mode, builderName } = pureBuilderConfig;
     if (builderName !== 'webpack') return;
 
-    const webpackConfigGetters = await getWebpackConfigGetters(buildConfig);
+    const webpackConfigGetters = await getWebpackConfigGetters(pureBuilderConfig);
     const taskDescriptorMap = {
       development: async () => {
         await doDev(webpackConfigGetters, 'serial');
@@ -57,5 +59,5 @@ export type {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
-  DefineProjectConfigFunction,
+  GetProjectConfig,
 }

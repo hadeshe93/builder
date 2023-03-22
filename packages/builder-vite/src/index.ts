@@ -8,7 +8,8 @@ import {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
-  DefineProjectConfigFunction,
+  PureBuilderConfig,
+  GetProjectConfig,
 } from './typings/index';
 
 export default class ViteBuilder implements AbstractBuilder {
@@ -17,8 +18,9 @@ export default class ViteBuilder implements AbstractBuilder {
   // 资源文件夹路径
   assetsPath = path.resolve(__dirname, '../assets');
 
-  async start(builderConfig: BuilderConfig) {
-    const { mode, builderName } = formatBuilderConfig(builderConfig);
+  async start(rawBuilderConfig: BuilderConfig) {
+    const builderConfig = await formatBuilderConfig<BuilderConfig, PureBuilderConfig>(rawBuilderConfig);
+    const { mode, builderName } = builderConfig;
     if (builderName !== 'vite') {
       debug('builderName is not "vite", quit normally.');
       return;
@@ -54,5 +56,5 @@ export type {
   ProjectMiddlewares,
   ProjectConfig,
   BuilderConfig,
-  DefineProjectConfigFunction,
+  GetProjectConfig,
 }

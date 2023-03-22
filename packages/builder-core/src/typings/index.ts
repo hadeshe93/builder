@@ -1,5 +1,5 @@
-export type SupportedBuilderNames = 'webpack' | 'vite';
-export type SupportedBuilderMode = 'development' | 'production';
+export type SupportedBuilderNames = 'webpack' | 'vite' | string;
+export type SupportedBuilderMode = 'development' | 'production' | string;
 export type SupportedBuilderInsMap = Map<SupportedBuilderNames, any>;
 
 // 项目配置
@@ -57,6 +57,9 @@ export interface BuilderConfig {
   // 目标页面名称
   pageName: string;
   // 项目配置
+  projectConfig: ProjectConfig | GetProjectConfig;
+}
+export interface PureBuilderConfig extends BuilderConfig {
   projectConfig: ProjectConfig;
 }
 
@@ -67,9 +70,9 @@ export interface BundledStringResult {
   originalResult: any;
 }
 
-export interface DefineProjectConfigFunctionOptions {
+export interface GetProjectConfigOptions {
   mode: string;
   builderName: string;
 }
 
-export type DefineProjectConfigFunction = (options: DefineProjectConfigFunctionOptions) => ProjectConfig | Promise<ProjectConfig>;
+export type GetProjectConfig<T extends ProjectConfig = ProjectConfig> = (options: GetProjectConfigOptions) => T | Promise<T>;

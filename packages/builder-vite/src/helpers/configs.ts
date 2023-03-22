@@ -2,7 +2,7 @@ import ViteChain from '@hadeshe93/vite-chain';
 import { composeMiddlewares } from '@hadeshe93/builder-core';
 import getCommonConfigMw from '../mws/common-config-mw';
 import getPageConfigMw from '../mws/page-config-mw';
-import { BuilderConfig, ProjectConfig, GetConfigGettersOptions, DefineProjectConfigFunction } from '../typings/index';
+import { BuilderConfig, ProjectConfig, GetConfigGettersOptions, GetProjectConfig } from '../typings/index';
 
 /**
  * 获取最终的构建配置
@@ -46,8 +46,8 @@ export async function getConfigGetters(options: GetConfigGettersOptions) {
  * @returns {*}  {ProjectConfig}
  */
 export function defineProjectConfig(
-  projectConfigOrFunc: ProjectConfig | DefineProjectConfigFunction
-): ProjectConfig | DefineProjectConfigFunction {
+  projectConfigOrFunc: ProjectConfig | GetProjectConfig
+): ProjectConfig | GetProjectConfig {
   return projectConfigOrFunc;
 }
 

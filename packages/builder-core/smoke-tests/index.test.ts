@@ -1,6 +1,7 @@
 import path from 'path';
 import { rollup, RollupOptions, OutputOptions } from 'rollup';
 import { createRollupConfig } from '../src/helpers/rollup';
+import { esbuildDynamicImport } from '../src/helpers/esbuild/index';
 
 const OUTPUT_DIR = path.resolve(__dirname, './dist');
 
@@ -29,6 +30,14 @@ async function main() {
   const output = await bundle.write(outputConfig as OutputOptions)
   console.log(output);
 }
+if (false) {
+  main();
+}
 
+async function testDynamicImport() {
+  const filePath = '/cbs/xcode/web-project-starter/packages/vite3-vue3/src/pages/demo1/project.config.ts';
+  const result = await esbuildDynamicImport(filePath, { format: 'cjs' } as any);
+  console.log(result);
+}
+testDynamicImport();
 
-main();

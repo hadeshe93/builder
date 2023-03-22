@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "[builder-core] Debug",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@hadeshe93/builder-core", "smoke-test"],
+      "runtimeArgs": ["--filter", "@hadeshe93/builder-core", "smoke-test:index"],
       "stopOnEntry": true
     },
     {

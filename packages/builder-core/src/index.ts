@@ -2,24 +2,20 @@ import path from 'path';
 import { excuteTasks } from './helpers/task';
 import { HtmlInjector } from './helpers/html-injector';
 import { logger, Logger } from './utils/logger';
-import {
-  formatBuilderConfig,
-  formatProjectConfig,
-  defineProjectConfig,
-  defineBuilderConfig
-} from './helpers/config';
+import { formatBuilderConfig, formatProjectConfig, defineProjectConfig, defineBuilderConfig } from './helpers/config';
 
 import {
   BuildOrderType,
   BuilderConfig,
+  PureBuilderConfig,
   ProjectConfig,
   ProjectMiddleware,
   ProjectMiddlewares,
   SupportedBuilderInsMap,
   SupportedBuilderNames,
   SupportedBuilderMode,
-  DefineProjectConfigFunction,
-  DefineProjectConfigFunctionOptions,
+  GetProjectConfig,
+  GetProjectConfigOptions,
 } from './typings/index';
 
 interface BuilderCoreOptions {
@@ -30,9 +26,7 @@ interface BuilderCoreOptions {
 const assetsPath = path.resolve(__dirname, '../assets');
 // 初始化 HtmlInjector 类
 HtmlInjector.init({
-  partialScriptEntries: [
-    path.resolve(assetsPath, 'injection-script/index.ts'),
-  ],
+  partialScriptEntries: [path.resolve(assetsPath, 'injection-script/index.ts')],
 });
 
 export {
@@ -45,18 +39,24 @@ export {
 };
 export { composeMiddlewares } from './helpers/middleware';
 export { rollupBundleString } from './helpers/rollup';
-export { esbuildBundleString, createEsbuildPluginReplaceMeta, createEsbuildExternalizeDepsPlugin } from './helpers/esbuild';
+export {
+  esbuildDynamicImport,
+  esbuildBundleString,
+  createEsbuildPluginReplaceMeta,
+  createEsbuildExternalizeDepsPlugin,
+} from './helpers/esbuild';
 
 export type {
   BuilderConfig,
+  PureBuilderConfig,
   ProjectConfig,
   ProjectMiddleware,
   ProjectMiddlewares,
   SupportedBuilderNames,
   SupportedBuilderMode,
   BuilderCoreOptions,
-  DefineProjectConfigFunction,
-  DefineProjectConfigFunctionOptions,
+  GetProjectConfig,
+  GetProjectConfigOptions,
 };
 
 export abstract class AbstractBuilder {
@@ -105,19 +105,21 @@ export default class BuilderCore {
   public createExcutor(oriConfigs: BuilderConfig[]) {
     const configs = (oriConfigs || []).map(formatBuilderConfig);
     const start = async (order: BuildOrderType = 'serial'): Promise<any> => {
-      const tasks = configs
-        .map((configItem) => {
-          const { builderName } = configItem;
-          if (!this.builderInsMap.has(builderName)) {
-            logger.warn(`"${builderName}" has not been registered, so the relative build will be ignored.`);
-            return null;
-          }
-          return async () => {
-            const builderIns = this.builderInsMap.get(builderName);
-            return await builderIns.start(configItem);
-          };
-        })
-        .filter((task) => !!task);
+      const tasks = await Promise.all(
+        configs
+          .map(async (configItem) => {
+            const { builderName } = await configItem;
+            if (!this.builderInsMap.has(builderName)) {
+              logger.warn(`"${builderName}" has not been registered, so the relative build will be ignored.`);
+              return null;
+            }
+            return async () => {
+              const builderIns = this.builderInsMap.get(builderName);
+              return await builderIns.start(configItem);
+            };
+          })
+          .filter((task) => !!task)
+      );
       return await excuteTasks(tasks, order);
     };
     return start;

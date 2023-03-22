@@ -5,16 +5,16 @@ import { composeMiddlewares } from '@hadeshe93/builder-core';
 import getPageConfigMw from '../mws/page-config-mw';
 import getDllConfigMw from '../mws/dll-config-mw';
 import getCommonConfigMw from '../mws/common-config-mw';
-import { BuilderConfig, DefineProjectConfigFunction } from '../typings/index';
+import { BuilderConfig, PureBuilderConfig, GetProjectConfig } from '../typings/index';
 
 /**
  * 获取 webpack 的构建配置列表
  *
  * @export
- * @param {BuilderConfig} buildConfig
+ * @param {PureBuilderConfig} buildConfig
  * @returns {*}  {Configuration[]}
  */
-export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promise<(() => Promise<Configuration>)[]> {
+export async function getWebpackConfigGetters(buildConfig: PureBuilderConfig): Promise<(() => Promise<Configuration>)[]> {
   const { mode, builderName, projectConfig } = buildConfig;
   if (builderName !== 'webpack') return [];
 
@@ -57,7 +57,7 @@ export async function getWebpackConfigGetters(buildConfig: BuilderConfig): Promi
  * @param {ProjectConfig} projectConfig
  * @returns {*}  {ProjectConfig}
  */
-export function defineProjectConfig(projectConfigOrFunc: DefineProjectConfigFunction): DefineProjectConfigFunction {
+export function defineProjectConfig(projectConfigOrFunc: GetProjectConfig): GetProjectConfig {
   return projectConfigOrFunc;
 }
 

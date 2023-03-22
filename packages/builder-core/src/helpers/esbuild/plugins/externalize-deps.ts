@@ -12,17 +12,18 @@ export function createEsbuildExternalizeDepsPlugin(): Plugin {
     name: 'esbuild-plugin-externalize-deps',
     setup(build) {
       const { initialOptions: buildOptions } = build;
-      const { alias } = buildOptions;
+      const { alias = {} } = buildOptions;
       const shouldExternalizeAliasKeys = Object.keys(alias).filter(key => /node_modules/.test(alias[key]));
       build.onResolve({ filter: /.*/ }, (args) => {
         const id = args.path;
         const shouldExternalize = (id[0] !== '.' && !path.isAbsolute(id))
           || Boolean(shouldExternalizeAliasKeys.find(key => id.startsWith(key)));
-        if (shouldExternalize) {
-          return {
-            external: true
-          };
-        }
+        // if (shouldExternalize) {
+          
+        // }
+        return {
+          external: shouldExternalize
+        };
       });
     },
   };
