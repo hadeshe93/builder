@@ -19,7 +19,7 @@ export interface CreateEsbuildConfigOptions extends BuildOptions {
   plugins?: BuildOptions['plugins'];
   platform: BuildOptions['platform'];
   define?: BuildOptions['define'];
-  minifiy?: BuildOptions['minify'];
+  minify?: BuildOptions['minify'];
   target?: BuildOptions['target'];
 }
 
@@ -60,12 +60,24 @@ export async function esbuildDynamicImport(filePath: string, options?: EsbuildDy
     name: `.${filePathObject.name}.temp.${new Date().getTime()}`,
     ext: '.js',
   });
-  await fs.writeFile(tempFilePath, content, 'utf8');
-  const dynamicImport = esbuildConfig.format === 'esm'
-    ? new Function('filePath',  'return import(filePath)')
-    : require;
-  const result = await dynamicImport(tempFilePath);
-  await fs.unlink(tempFilePath);
+
+  let result;
+  let error;
+  try {
+    await fs.writeFile(tempFilePath, content, 'utf8');
+    const dynamicImport = esbuildConfig.format === 'esm'
+      ? new Function('filePath',  'return import(filePath)')
+      : require;
+    result = await dynamicImport(tempFilePath);
+  } catch (err) {
+    error = err;
+  } finally {
+    // 确保异常发生之后，还有能力清除掉临时文件
+    if (await fs.pathExists(tempFilePath)) {
+      await fs.unlink(tempFilePath);
+    }
+  }
+  if (error) throw error;
   return Object.prototype.hasOwnProperty.call(result, 'default') ? result.default : result;
 }
 

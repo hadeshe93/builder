@@ -28,7 +28,10 @@ export default class HtmlInjectionPlugin {
         } else {
           injector.reloadTemplateHtml(html);
         }
-        data.html = await injector.getInjectedHtml({ builder: mode === 'production' ? 'rollup' : 'esbuild' });
+        const isModeProduction = mode === 'production';
+        data.html = await injector.getInjectedHtml({
+          builder: isModeProduction ? 'rollup' : 'esbuild',
+        });
         cb(null, data);
       });
     });

@@ -22,7 +22,7 @@ export interface CreateRollupConfigOptions {
   // 自定义配置
   target: 'node' | 'browser' | 'common';
   define?: Record<string, any>;
-  minifiy?: boolean;
+  minify?: boolean;
   browserslist?: string | string[] | Record<string, string | string[]>;
 }
 
@@ -156,7 +156,7 @@ function formatCreateRollupConfigOptions(options: CreateRollupConfigOptions) {
 
     target,
     define: rawDefine,
-    minifiy: rawMinify,
+    minify: rawMinify,
     browserslist: rawBrowserslist,
   } = options;
   if (!input) throw new Error('input 不能为空');
@@ -176,8 +176,8 @@ function formatCreateRollupConfigOptions(options: CreateRollupConfigOptions) {
   const external = rawExternal ?? [];
   const plugins = rawPlugins ?? [];
   const define = rawDefine ?? {};
-  const minifiy = rawMinify ?? false;
-  if (minifiy) {
+  const minify = rawMinify ?? false;
+  if (minify) {
     plugins.push(
       ...[
         terser({
@@ -206,7 +206,7 @@ function formatCreateRollupConfigOptions(options: CreateRollupConfigOptions) {
     external,
     plugins,
     target,
-    minifiy,
+    minify,
     browserslist,
   };
 }
