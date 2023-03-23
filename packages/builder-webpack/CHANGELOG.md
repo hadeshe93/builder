@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.14
+
+### Patch Changes
+
+- 36da516: 优化 builder-webpack 的 publicPath 默认使用 pageName 下的路径
+
 ## 0.2.13
 
 ### Patch Changes
