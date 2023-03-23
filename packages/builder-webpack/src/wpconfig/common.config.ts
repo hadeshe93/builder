@@ -115,9 +115,6 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs, ch
     .end()
     .type('javascript/auto');
 
-  // resolve: alias
-  chainConfig.resolve.alias.set('@', resolve('src/'));
-
   // resolve: extensions
   chainConfig.resolve.extensions.add('.ts').add('.tsx').add('...');
 
@@ -128,7 +125,6 @@ export function getCommonChainConfig(oriParams: ParamsGetWebpackChainConfigs, ch
   chainConfig.plugin('DefinePlugin').use(webpack.DefinePlugin, [
     {
       'process.env.NODE_ENV': JSON.stringify(process.env['NODE_ENV']),
-      '__WEBPACK_MODE__': JSON.stringify(MODE),
     },
   ]);
 

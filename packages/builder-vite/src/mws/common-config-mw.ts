@@ -12,13 +12,13 @@ const getDefaultCacheDir = (root: string) => path.resolve(root, '.vite');
  *
  * @export
  * @param {GetConfigGettersOptions} options
- * @returns {*} 
+ * @returns {*}
  */
 export default function getCommonConfigMw(options: GetConfigGettersOptions) {
   const { builderConfig } = options;
   return function (chainConfig: ViteChain): ViteChain {
     const { mode, pageName, projectPath, projectConfig } = builderConfig;
-    const {  build } = projectConfig;
+    const { build } = projectConfig;
     const { devPort = getDefaultFefort(), publicPath: rawBase = getDefaultPublicPath(pageName) } = build;
     const base = rawBase ? rawBase : getDefaultPublicPath(pageName);
     const root = getDefaultRoot(projectPath, pageName);
@@ -28,18 +28,16 @@ export default function getCommonConfigMw(options: GetConfigGettersOptions) {
       .root(root)
       .base(base)
       .cacheDir(cacheDir)
-      ;
+      .resolve.alias.merge({
+        'process.env.NODE_ENV': JSON.stringify(process.env['NODE_ENV']),
+      })
+      .end();
     if (mode === 'production') {
       chainConfig.build.sourcemap(true);
     } else {
-      chainConfig
-        .server
-          .port(devPort)
-          .end()
-        .build
-          .sourcemap('inline');
+      chainConfig.server.port(devPort).end().build.sourcemap('inline');
     }
-    
+
     return chainConfig;
-  }
+  };
 }
