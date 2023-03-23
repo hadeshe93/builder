@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.12
+
+### Patch Changes
+
+- c755932: 修复 builder-webpack 里面 postcss-pxtorem 插件的问题
+
 ## 0.2.11
 
 ### Patch Changes
