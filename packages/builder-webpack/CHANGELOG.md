@@ -1,5 +1,11 @@
 # @hadeshe93/builder-webpack
 
+## 0.2.13
+
+### Patch Changes
+
+- ddfeace: 修复完善 builder 中的依赖和 alias
+
 ## 0.2.12
 
 ### Patch Changes

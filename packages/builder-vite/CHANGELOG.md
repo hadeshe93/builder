@@ -1,5 +1,11 @@
 # @hadeshe93/builder-vite
 
+## 0.2.11
+
+### Patch Changes
+
+- ddfeace: 修复完善 builder 中的依赖和 alias
+
 ## 0.2.10
 
 ### Patch Changes
