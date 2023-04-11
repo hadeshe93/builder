@@ -1,5 +1,11 @@
 # @hadeshe93/wpconfig-mw-vue3
 
+## 1.0.0
+
+### Major Changes
+
+- 8d72678: 重构构建机制
+
 ## 0.1.13
 
 ### Patch Changes

@@ -126,8 +126,8 @@ importers:
 
   packages/builder-vite:
     specifiers:
-      '@hadeshe93/builder-core': workspace:^0.2.11
-      '@hadeshe93/vite-chain': workspace:^0.2.0
+      '@hadeshe93/builder-core': workspace:^1.0.0
+      '@hadeshe93/vite-chain': workspace:^1.0.0
       '@types/debug': ^4.1.7
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.0.3
@@ -172,9 +172,9 @@ importers:
       '@babel/preset-env': ^7.14.5
       '@babel/preset-typescript': ^7.16.7
       '@babel/runtime-corejs3': ^7.18.3
-      '@hadeshe93/builder-core': workspace:^0.2.11
+      '@hadeshe93/builder-core': workspace:^1.0.0
       '@hadeshe93/lib-node': ^0.8.0
-      '@hadeshe93/wpconfig-mw-vue3': workspace:^0.1.13
+      '@hadeshe93/wpconfig-mw-vue3': workspace:^1.0.0
       '@types/debug': ^4.1.7
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
@@ -320,7 +320,7 @@ importers:
 
   packages/vtconfig-mw-vue3:
     specifiers:
-      '@hadeshe93/vite-chain': workspace:^0.2.0
+      '@hadeshe93/vite-chain': workspace:^1.0.0
       '@types/jest': ^29.0.3
       '@types/node': ^18.7.18
       '@vitejs/plugin-vue': ^4.0.0
@@ -4771,7 +4771,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.1.1_@types+node@18.7.18
+      vite: 4.1.1_pj4laxyq2vouo6xp2bfbprvvcu
       vue: 3.2.47
 
   /@vue/compiler-core/3.2.47:
@@ -12305,6 +12305,7 @@ packages:
       rollup: 3.15.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: false
 
   /vite/4.1.1_pj4laxyq2vouo6xp2bfbprvvcu:
     resolution: {integrity: sha512-LM9WWea8vsxhr782r9ntg+bhSFS06FJgCvvB0+8hf8UWtvaiDagKYWXndjfX6kGl74keHJUcpzrQliDXZlF5yg==}

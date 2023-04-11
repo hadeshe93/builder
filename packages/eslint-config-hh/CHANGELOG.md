@@ -1,5 +1,11 @@
 # @hadeshe93/eslint-config-hh
 
+## 1.0.0
+
+### Major Changes
+
+- 8d72678: 重构构建机制
+
 ## 0.1.3
 
 ### Patch Changes

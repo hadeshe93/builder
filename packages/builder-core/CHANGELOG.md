@@ -1,5 +1,11 @@
 # @hadeshe93/builder-core
 
+## 1.0.0
+
+### Major Changes
+
+- 8d72678: 重构构建机制
+
 ## 0.2.11
 
 ### Patch Changes

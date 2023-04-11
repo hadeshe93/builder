@@ -1,5 +1,16 @@
 # @hadeshe93/vtconfig-mw-vue3
 
+## 1.0.0
+
+### Major Changes
+
+- 8d72678: 重构构建机制
+
+### Patch Changes
+
+- Updated dependencies [8d72678]
+  - @hadeshe93/vite-chain@1.0.0
+
 ## 0.1.3
 
 ### Patch Changes

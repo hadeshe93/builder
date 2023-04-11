@@ -1,5 +1,16 @@
 # @hadeshe93/builder-webpack
 
+## 1.0.0
+
+### Major Changes
+
+- 8d72678: 重构构建机制
+
+### Patch Changes
+
+- Updated dependencies [8d72678]
+  - @hadeshe93/builder-core@1.0.0
+
 ## 0.2.14
 
 ### Patch Changes

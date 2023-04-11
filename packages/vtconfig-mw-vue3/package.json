@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/vtconfig-mw-vue3",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/wpconfig#readme",
@@ -50,7 +50,7 @@
     "vue": "^3.2.13"
   },
   "dependencies": {
-    "@hadeshe93/vite-chain": "workspace:^0.2.0",
+    "@hadeshe93/vite-chain": "workspace:^1.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.1.1"
   }
