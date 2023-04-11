@@ -1,4 +1,4 @@
-import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/wpconfig-core';
+import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/lib-node';
 import type WebpackChainConfig from 'webpack-chain';
 
 export default function() {

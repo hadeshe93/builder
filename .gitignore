@@ -19,3 +19,5 @@ jest_html_reporters.html
 dist-api-report
 
 dist-temp-api-report
+
+*.tsbuildinfo

@@ -1,4 +1,3 @@
-import path from 'path';
 import { debug } from './utils/debug';
 import { doDev, doBuild } from './helpers/do';
 import { formatBuilderConfig, AbstractBuilder } from '@hadeshe93/builder-core';
@@ -15,9 +14,6 @@ import {
 export default class ViteBuilder implements AbstractBuilder {
   constructor() {}
 
-  // 资源文件夹路径
-  assetsPath = path.resolve(__dirname, '../assets');
-
   async start(rawBuilderConfig: BuilderConfig) {
     const builderConfig = await formatBuilderConfig<BuilderConfig, PureBuilderConfig>(rawBuilderConfig);
     const { mode, builderName } = builderConfig;
@@ -27,9 +23,6 @@ export default class ViteBuilder implements AbstractBuilder {
     }
     const configGetters = await getConfigGetters({
       builderConfig,
-      envConfig: {
-        assetsPath: this.assetsPath,
-      },
     });
     const taskDescriptorMap = {
       development: async () => {

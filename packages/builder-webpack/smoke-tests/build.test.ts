@@ -1,28 +1,23 @@
-import BuilderWebpack, { ProjectConfig } from '../src/index';
+import path from 'path';
+import { esbuildDynamicImport } from '@hadeshe93/builder-core';
+import BuilderVite, { ProjectConfig } from '../src/index';
 
-const projectConfig: ProjectConfig = {
-  page: {
-    title: '测试页面',
-    description: '',
-    useInjection: {
-      flexible: true
-    },
-  },
-  build: {
-    dllEntryMap: {
-      vueStack: ['vue', 'vue-router', 'pinia']
-    },
-  },
-  middlewares: [
-    ['@hadeshe93/wpconfig-mw-vue3']
-  ],
-};
+async function main() {
+  const projectPath = '/cbs/xcode/web-project-starter/packages/webpack5-vue3';
+  const pageName = 'demo1';
+  const projectPagePath = path.resolve(projectPath, 'src', 'pages', pageName);
+  const projectConfig: ProjectConfig = await esbuildDynamicImport(path.resolve(projectPagePath, 'project.config.ts'));
+  process.chdir(projectPath);
+  console.log('process.cwd():', process.cwd());
 
-const builder = new BuilderWebpack();
-builder.start({
-  mode: 'production',
-  builderName: 'webpack',
-  projectPath: '/cbs/xcode/web-project-starter/packages/webpack5-vue3',
-  pageName: 'demo1',
-  projectConfig,
-});
+  const builder = new BuilderVite();
+  builder.start({
+    mode: 'production',
+    builderName: 'webpack',
+    projectPath,
+    pageName: 'demo1',
+    projectConfig,
+  });
+}
+
+main();

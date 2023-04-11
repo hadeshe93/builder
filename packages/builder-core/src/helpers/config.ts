@@ -1,5 +1,5 @@
 import path from 'path';
-import { getRequireResolve, getNodeModulePaths } from '@hadeshe93/wpconfig-core';
+import { getNodeModulePaths, getRequireResolve } from '@hadeshe93/lib-node';
 import { ProjectConfig, BuilderConfig, PureBuilderConfig, GetProjectConfig } from '../typings/index';
 
 /**

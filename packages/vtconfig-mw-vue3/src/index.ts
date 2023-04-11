@@ -1,9 +1,12 @@
 import ViteChain from '@hadeshe93/vite-chain';
-import vitePluginVue from '@vitejs/plugin-vue';
+import vitePluginVue, { Options } from '@vitejs/plugin-vue';
 
-export default function() {
+export default function(options: Options) {
   return function(chainConfig: ViteChain): ViteChain {
-    chainConfig.plugin('vitePluginVue').use(vitePluginVue).end();
+    chainConfig
+      .plugin('vitePluginVue')
+      .use(vitePluginVue, options ? [options] : [])
+      .end();
     return chainConfig;
   };
 }

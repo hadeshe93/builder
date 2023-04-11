@@ -44,7 +44,7 @@ export interface ProjectConfig {
 }
 
 export type AnyFunction = (...args: any[]) => any;
-export type ProjectMiddleware = [string, any?] | [AnyFunction, any?];
+export type ProjectMiddleware = [string, ...any[]] | [AnyFunction, ...any[]];
 export type ProjectMiddlewares = ProjectMiddleware[];
 
 export interface BuilderConfig {

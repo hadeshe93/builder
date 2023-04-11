@@ -6,10 +6,10 @@
     // 生成声明文件
     // "emitDeclarationOnly": true,
     "declaration": true,
-    "declarationMap": true,
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["esnext", "dom"],
+    "declarationMap": false,
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": ["ES2018", "dom"],
     "moduleResolution": "node",
     "allowJs": true,
     "checkJs": true,
@@ -27,11 +27,9 @@
     "rootDir": ".",
     "paths": {
       "@/*": ["src/*"]
-      // "@vue/*": ["packages/*/src"],
-      // "vue": ["packages/vue/src"]
     },
     "skipLibCheck": true,
-    "incremental": true
+    "skipDefaultLibCheck": true
   }
   // "include": [
   //   // "packages/global.d.ts",

@@ -1,4 +1,4 @@
-A middleware should be used with `@hadeshe93/wpconfig-core` in order to support the app project based on `react`.
+A middleware should be used with `webpack-chain` in order to support the app project based on `react`.
 
 ## Installation
 
@@ -10,17 +10,14 @@ $ npm install @hadeshe93/wpconfig-mw-react17 --save
 
 ```js
 // use it in esm
-import { getDevChainConfig } from '@hadeshe93/wpconfig-core';
+import ChainConfig from 'webpack-chain';
 import getMWReact17 from '@hadeshe93/wpconfig-mw-react17'
 
 // return a WebpackChainConfig instance
-const devChainConfig = getMWReact17()(
-    getDevChainConfig({
-      projectPath: '/path/to/project',
-      page: 'demo1',
-    })
+const chainConfig = getMWReact17()(
+  new ChainConfig()
 );
 // get config in json format
-const webpackConfig = devChainConfig.toConfig();
+const webpackConfig = chainConfig.toConfig();
 // ...
 ```

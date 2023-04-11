@@ -16,9 +16,6 @@ export interface PureBuilderConfig extends BuilderConfig {
 
 export interface GetConfigGettersOptions {
   builderConfig: PureBuilderConfig;
-  envConfig: {
-    assetsPath: string;
-  };
 }
 
 export type GetProjectConfig = (options: GetProjectConfigOptions) => ProjectConfig | Promise<ProjectConfig>;

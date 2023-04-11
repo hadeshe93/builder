@@ -5,16 +5,15 @@
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/flow/packages/eslint-config-hh",
   "license": "ISC",
-  "module": "dist/index.node.esm.js",
-  "main": "index.js",
+  "main": "dist/index.js",
   "exports": {
-    "import": "./dist/index.node.esm.js",
-    "require": "./dist/index.node.cjs.js"
+    "require": "./dist/index.js"
   },
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
     "smoke-test": "cross-env NODE_ENV=development ts-node -P ./tsconfig.json ./smoke-tests/index.test.ts",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts eslint-config-hh"
+    "build": "rimraf ./dist && tsc -p ./tsconfig.prod.json && tsc-alias -p ./tsconfig.prod.json",
+    "build:depreacted": "# Depreacted script \n  # cross-env NODE_ENV=production esno ../../scripts/build/build-packages.ts eslint-config-hh"
   },
   "types": "dist/index.d.ts",
   "buildOptions": [
@@ -44,7 +43,9 @@
     "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
     "eslint": "^8.31.0",
-    "prettier": "^2.8.2"
+    "prettier": "^2.8.2",
+    "rimraf": "^5.0.0",
+    "tsc-alias": "^1.8.5"
   },
   "peerDependencies": {
     "eslint": "^8.31.0",

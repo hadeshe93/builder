@@ -4,7 +4,6 @@
     "baseUrl": ".",
     "outDir": "./dist",
     "rootDir": "./",
-    "lib": ["ESNext"],
   },
   "include": ["./src", "./tests", "./smoke-tests"],
   "ts-node": {
