@@ -3,7 +3,7 @@ A middleware should be used with `@hadeshe93/vite-chain` in order to support the
 ## Installation
 
 ```sh
-$ npm install @hadeshe93/vtconfig-mw-vue3 --save
+$ npm install @hadeshe93/vtconfig-mw-solid --save
 ```
 
 ## Usage
@@ -11,13 +11,13 @@ $ npm install @hadeshe93/vtconfig-mw-vue3 --save
 ```js
 // use it in esm
 import ChainConfig from '@hadeshe93/vite-chain';
-import getMWVue3, { Options } from '@hadeshe93/vtconfig-mw-vue3';
+import getMWSolid, { Options } from '@hadeshe93/vtconfig-mw-solid';
 
 // return a ViteChainConfig instance
 const options: Options = {
   // ...
 };
-const chainConfig = getMWVue3(options)(
+const chainConfig = getMWSolid(options)(
   new ChainConfig()
 );
 // get config in json format
