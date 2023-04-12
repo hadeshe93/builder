@@ -1,5 +1,11 @@
 # @hadeshe93/vtconfig-mw-vue3
 
+## 1.0.1
+
+### Patch Changes
+
+- 6bd59e7: 新增 solid 插件
+
 ## 1.0.0
 
 ### Major Changes
