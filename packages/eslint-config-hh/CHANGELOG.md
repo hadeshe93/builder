@@ -1,5 +1,11 @@
 # @hadeshe93/eslint-config-hh
 
+## 1.0.3
+
+### Patch Changes
+
+- fa2861c: 修复 eslint-config-hh 的配置问题
+
 ## 1.0.2
 
 ### Patch Changes
