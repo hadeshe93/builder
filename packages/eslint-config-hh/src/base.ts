@@ -23,12 +23,12 @@ export = {
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   overrides: [
     {
-      files: '*.ts',
+      files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: ['./packages/**/tsconfig.json', './tsconfig.json'],
+        project: ['./packages/**/tsconfig.json', './**/tsconfig.json'],
       },
       plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
