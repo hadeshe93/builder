@@ -1,5 +1,11 @@
 # @hadeshe93/eslint-config-hh
 
+## 1.0.2
+
+### Patch Changes
+
+- 355068f: 完善 eslint-config-hh 包的导出机制
+
 ## 1.0.1
 
 ### Patch Changes
