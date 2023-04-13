@@ -1,5 +1,11 @@
 # @hadeshe93/eslint-config-hh
 
+## 1.0.1
+
+### Patch Changes
+
+- c1fae8b: 修复问题
+
 ## 1.0.0
 
 ### Major Changes
