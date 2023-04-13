@@ -14,6 +14,12 @@ export = {
     // 即使没有 babelrc 配置文件，也使用 @babel/eslint-parser 来解析
     requireConfigFile: false,
   },
+  env: {
+    browser: true,
+    node: true,
+    commonjs: true,
+    es6: true,
+  },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   overrides: [
     {
