@@ -3,9 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./"
   },
   "include": ["./src", "./tests", "./smoke-tests"],
+  "exclude": ["./dist"],
   "ts-node": {
     "scope": true,
     "scopeDir": "./",
